@@ -27,6 +27,6 @@
   },
   "homepage": "https://github.com/spektr-ai/public#readme",
   "publishConfig": {
-    "access": "public"
+    "@ciprianflow:registry": "https://npm.pkg.github.com"
   }
 }
