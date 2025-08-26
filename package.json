@@ -1,5 +1,5 @@
 {
-  "name": "@spektr/public-client-sdk",
+  "name": "@spektr-ai/client-sdk",
   "version": "1.0.0",
   "description": "Spektr Public Client SDK",
   "main": "dist/index.js",
