@@ -1,0 +1,32 @@
+{
+  "name": "@spektr/public-client-sdk",
+  "version": "1.0.0",
+  "description": "Spektr Public Client SDK",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "prebuild": "npm run clean"
+  },
+  "keywords": [
+    "typescript",
+    "npm",
+    "package"
+  ],
+  "author": "Ciprian Florescu <c@spektr.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/spektr-ai/public.git"
+  },
+  "bugs": {
+    "url": "https://github.com/spektr-ai/public/issues"
+  },
+  "homepage": "https://github.com/spektr-ai/public#readme",
+  "publishConfig": {
+    "access": "public"
+  }
+}
