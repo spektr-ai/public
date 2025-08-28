@@ -3,6 +3,3703 @@ import { z } from 'zod';
 declare const SpektrData: z.ZodRecord<z.ZodString, z.ZodUnion<[z.ZodUnion<[z.ZodString, z.ZodNumber, z.ZodBoolean, z.ZodNull]>, z.ZodUndefined]>>;
 type SpektrData = z.infer<typeof SpektrData>;
 
+declare const LogicalField: z.ZodObject<{
+    id: z.ZodString;
+    config: z.ZodObject<{
+        spektrDataField: z.ZodString;
+        prefillDefaultValue: z.ZodDefault<z.ZodOptional<z.ZodBoolean>>;
+        prefillSpektrDataField: z.ZodOptional<z.ZodString>;
+        value: z.ZodOptional<z.ZodUnion<[z.ZodString, z.ZodNumber, z.ZodBoolean, z.ZodNull]>>;
+        defaultValue: z.ZodOptional<z.ZodUnion<[z.ZodString, z.ZodNumber, z.ZodBoolean, z.ZodNull]>>;
+    }, "strip", z.ZodTypeAny, {
+        spektrDataField: string;
+        prefillDefaultValue: boolean;
+        prefillSpektrDataField?: string | undefined;
+        value?: string | number | boolean | null | undefined;
+        defaultValue?: string | number | boolean | null | undefined;
+    }, {
+        spektrDataField: string;
+        prefillDefaultValue?: boolean | undefined;
+        prefillSpektrDataField?: string | undefined;
+        value?: string | number | boolean | null | undefined;
+        defaultValue?: string | number | boolean | null | undefined;
+    }>;
+    isStructured: z.ZodDefault<z.ZodBoolean>;
+    ui: z.ZodOptional<z.ZodObject<{
+        style: z.ZodObject<{
+            width: z.ZodOptional<z.ZodString>;
+        }, "strip", z.ZodTypeAny, {
+            width?: string | undefined;
+        }, {
+            width?: string | undefined;
+        }>;
+    }, "strip", z.ZodTypeAny, {
+        style: {
+            width?: string | undefined;
+        };
+    }, {
+        style: {
+            width?: string | undefined;
+        };
+    }>>;
+    customerFieldId: z.ZodOptional<z.ZodString>;
+} & {
+    type: z.ZodLiteral<"conditional">;
+    validation: z.ZodArray<z.ZodUnion<[z.ZodObject<{
+        type: z.ZodLiteral<"required">;
+        value: z.ZodLiteral<true>;
+        message: z.ZodString;
+    }, "strip", z.ZodTypeAny, {
+        value: true;
+        message: string;
+        type: "required";
+    }, {
+        value: true;
+        message: string;
+        type: "required";
+    }>, z.ZodObject<{
+        type: z.ZodLiteral<"regex">;
+        value: z.ZodAny;
+        preset: z.ZodOptional<z.ZodString>;
+        message: z.ZodString;
+    }, "strip", z.ZodTypeAny, {
+        message: string;
+        type: "regex";
+        value?: any;
+        preset?: string | undefined;
+    }, {
+        message: string;
+        type: "regex";
+        value?: any;
+        preset?: string | undefined;
+    }>, z.ZodObject<{
+        type: z.ZodLiteral<"date">;
+        minimumAge: z.ZodOptional<z.ZodNumber>;
+        maximumAge: z.ZodOptional<z.ZodNumber>;
+        message: z.ZodString;
+    }, "strip", z.ZodTypeAny, {
+        message: string;
+        type: "date";
+        minimumAge?: number | undefined;
+        maximumAge?: number | undefined;
+    }, {
+        message: string;
+        type: "date";
+        minimumAge?: number | undefined;
+        maximumAge?: number | undefined;
+    }>]>, "many">;
+    segment: z.ZodAny;
+    output: z.ZodDefault<z.ZodOptional<z.ZodEnum<["show", "hide"]>>>;
+    form: z.ZodObject<{
+        fields: z.ZodRecord<z.ZodString, z.ZodUnion<[z.ZodObject<{
+            id: z.ZodString;
+            config: z.ZodObject<{
+                spektrDataField: z.ZodString;
+                prefillDefaultValue: z.ZodDefault<z.ZodOptional<z.ZodBoolean>>;
+                prefillSpektrDataField: z.ZodOptional<z.ZodString>;
+                value: z.ZodOptional<z.ZodUnion<[z.ZodString, z.ZodNumber, z.ZodBoolean, z.ZodNull]>>;
+                defaultValue: z.ZodOptional<z.ZodUnion<[z.ZodString, z.ZodNumber, z.ZodBoolean, z.ZodNull]>>;
+            }, "strip", z.ZodTypeAny, {
+                spektrDataField: string;
+                prefillDefaultValue: boolean;
+                prefillSpektrDataField?: string | undefined;
+                value?: string | number | boolean | null | undefined;
+                defaultValue?: string | number | boolean | null | undefined;
+            }, {
+                spektrDataField: string;
+                prefillDefaultValue?: boolean | undefined;
+                prefillSpektrDataField?: string | undefined;
+                value?: string | number | boolean | null | undefined;
+                defaultValue?: string | number | boolean | null | undefined;
+            }>;
+            isStructured: z.ZodDefault<z.ZodBoolean>;
+            ui: z.ZodOptional<z.ZodObject<{
+                style: z.ZodObject<{
+                    width: z.ZodOptional<z.ZodString>;
+                }, "strip", z.ZodTypeAny, {
+                    width?: string | undefined;
+                }, {
+                    width?: string | undefined;
+                }>;
+            }, "strip", z.ZodTypeAny, {
+                style: {
+                    width?: string | undefined;
+                };
+            }, {
+                style: {
+                    width?: string | undefined;
+                };
+            }>>;
+            customerFieldId: z.ZodOptional<z.ZodString>;
+            type: z.ZodLiteral<"input">;
+            value: z.ZodOptional<z.ZodString>;
+            validation: z.ZodDefault<z.ZodArray<z.ZodUnion<[z.ZodObject<{
+                type: z.ZodLiteral<"required">;
+                value: z.ZodLiteral<true>;
+                message: z.ZodString;
+            }, "strip", z.ZodTypeAny, {
+                value: true;
+                message: string;
+                type: "required";
+            }, {
+                value: true;
+                message: string;
+                type: "required";
+            }>, z.ZodObject<{
+                type: z.ZodLiteral<"regex">;
+                value: z.ZodAny;
+                preset: z.ZodOptional<z.ZodString>;
+                message: z.ZodString;
+            }, "strip", z.ZodTypeAny, {
+                message: string;
+                type: "regex";
+                value?: any;
+                preset?: string | undefined;
+            }, {
+                message: string;
+                type: "regex";
+                value?: any;
+                preset?: string | undefined;
+            }>, z.ZodObject<{
+                type: z.ZodLiteral<"date">;
+                minimumAge: z.ZodOptional<z.ZodNumber>;
+                maximumAge: z.ZodOptional<z.ZodNumber>;
+                message: z.ZodString;
+            }, "strip", z.ZodTypeAny, {
+                message: string;
+                type: "date";
+                minimumAge?: number | undefined;
+                maximumAge?: number | undefined;
+            }, {
+                message: string;
+                type: "date";
+                minimumAge?: number | undefined;
+                maximumAge?: number | undefined;
+            }>]>, "many">>;
+        } & {
+            attributes: z.ZodObject<{
+                label: z.ZodString;
+                name: z.ZodOptional<z.ZodString>;
+                placeholder: z.ZodOptional<z.ZodString>;
+                helperText: z.ZodOptional<z.ZodString>;
+                countryField: z.ZodOptional<z.ZodString>;
+                internalId: z.ZodOptional<z.ZodString>;
+            } & {
+                type: z.ZodLiteral<"date">;
+                format: z.ZodOptional<z.ZodString>;
+                minDate: z.ZodOptional<z.ZodString>;
+                maxDate: z.ZodOptional<z.ZodString>;
+            }, "strip", z.ZodTypeAny, {
+                type: "date";
+                label: string;
+                name?: string | undefined;
+                placeholder?: string | undefined;
+                helperText?: string | undefined;
+                countryField?: string | undefined;
+                internalId?: string | undefined;
+                format?: string | undefined;
+                minDate?: string | undefined;
+                maxDate?: string | undefined;
+            }, {
+                type: "date";
+                label: string;
+                name?: string | undefined;
+                placeholder?: string | undefined;
+                helperText?: string | undefined;
+                countryField?: string | undefined;
+                internalId?: string | undefined;
+                format?: string | undefined;
+                minDate?: string | undefined;
+                maxDate?: string | undefined;
+            }>;
+        }, "strip", z.ZodTypeAny, {
+            validation: ({
+                value: true;
+                message: string;
+                type: "required";
+            } | {
+                message: string;
+                type: "regex";
+                value?: any;
+                preset?: string | undefined;
+            } | {
+                message: string;
+                type: "date";
+                minimumAge?: number | undefined;
+                maximumAge?: number | undefined;
+            })[];
+            type: "input";
+            id: string;
+            config: {
+                spektrDataField: string;
+                prefillDefaultValue: boolean;
+                prefillSpektrDataField?: string | undefined;
+                value?: string | number | boolean | null | undefined;
+                defaultValue?: string | number | boolean | null | undefined;
+            };
+            isStructured: boolean;
+            attributes: {
+                type: "date";
+                label: string;
+                name?: string | undefined;
+                placeholder?: string | undefined;
+                helperText?: string | undefined;
+                countryField?: string | undefined;
+                internalId?: string | undefined;
+                format?: string | undefined;
+                minDate?: string | undefined;
+                maxDate?: string | undefined;
+            };
+            value?: string | undefined;
+            ui?: {
+                style: {
+                    width?: string | undefined;
+                };
+            } | undefined;
+            customerFieldId?: string | undefined;
+        }, {
+            type: "input";
+            id: string;
+            config: {
+                spektrDataField: string;
+                prefillDefaultValue?: boolean | undefined;
+                prefillSpektrDataField?: string | undefined;
+                value?: string | number | boolean | null | undefined;
+                defaultValue?: string | number | boolean | null | undefined;
+            };
+            attributes: {
+                type: "date";
+                label: string;
+                name?: string | undefined;
+                placeholder?: string | undefined;
+                helperText?: string | undefined;
+                countryField?: string | undefined;
+                internalId?: string | undefined;
+                format?: string | undefined;
+                minDate?: string | undefined;
+                maxDate?: string | undefined;
+            };
+            value?: string | undefined;
+            validation?: ({
+                value: true;
+                message: string;
+                type: "required";
+            } | {
+                message: string;
+                type: "regex";
+                value?: any;
+                preset?: string | undefined;
+            } | {
+                message: string;
+                type: "date";
+                minimumAge?: number | undefined;
+                maximumAge?: number | undefined;
+            })[] | undefined;
+            isStructured?: boolean | undefined;
+            ui?: {
+                style: {
+                    width?: string | undefined;
+                };
+            } | undefined;
+            customerFieldId?: string | undefined;
+        }>, z.ZodObject<{
+            id: z.ZodString;
+            config: z.ZodObject<{
+                spektrDataField: z.ZodString;
+                prefillDefaultValue: z.ZodDefault<z.ZodOptional<z.ZodBoolean>>;
+                prefillSpektrDataField: z.ZodOptional<z.ZodString>;
+                value: z.ZodOptional<z.ZodUnion<[z.ZodString, z.ZodNumber, z.ZodBoolean, z.ZodNull]>>;
+                defaultValue: z.ZodOptional<z.ZodUnion<[z.ZodString, z.ZodNumber, z.ZodBoolean, z.ZodNull]>>;
+            }, "strip", z.ZodTypeAny, {
+                spektrDataField: string;
+                prefillDefaultValue: boolean;
+                prefillSpektrDataField?: string | undefined;
+                value?: string | number | boolean | null | undefined;
+                defaultValue?: string | number | boolean | null | undefined;
+            }, {
+                spektrDataField: string;
+                prefillDefaultValue?: boolean | undefined;
+                prefillSpektrDataField?: string | undefined;
+                value?: string | number | boolean | null | undefined;
+                defaultValue?: string | number | boolean | null | undefined;
+            }>;
+            isStructured: z.ZodDefault<z.ZodBoolean>;
+            ui: z.ZodOptional<z.ZodObject<{
+                style: z.ZodObject<{
+                    width: z.ZodOptional<z.ZodString>;
+                }, "strip", z.ZodTypeAny, {
+                    width?: string | undefined;
+                }, {
+                    width?: string | undefined;
+                }>;
+            }, "strip", z.ZodTypeAny, {
+                style: {
+                    width?: string | undefined;
+                };
+            }, {
+                style: {
+                    width?: string | undefined;
+                };
+            }>>;
+            customerFieldId: z.ZodOptional<z.ZodString>;
+            type: z.ZodLiteral<"input">;
+            value: z.ZodOptional<z.ZodString>;
+            validation: z.ZodDefault<z.ZodArray<z.ZodUnion<[z.ZodObject<{
+                type: z.ZodLiteral<"required">;
+                value: z.ZodLiteral<true>;
+                message: z.ZodString;
+            }, "strip", z.ZodTypeAny, {
+                value: true;
+                message: string;
+                type: "required";
+            }, {
+                value: true;
+                message: string;
+                type: "required";
+            }>, z.ZodObject<{
+                type: z.ZodLiteral<"regex">;
+                value: z.ZodAny;
+                preset: z.ZodOptional<z.ZodString>;
+                message: z.ZodString;
+            }, "strip", z.ZodTypeAny, {
+                message: string;
+                type: "regex";
+                value?: any;
+                preset?: string | undefined;
+            }, {
+                message: string;
+                type: "regex";
+                value?: any;
+                preset?: string | undefined;
+            }>, z.ZodObject<{
+                type: z.ZodLiteral<"date">;
+                minimumAge: z.ZodOptional<z.ZodNumber>;
+                maximumAge: z.ZodOptional<z.ZodNumber>;
+                message: z.ZodString;
+            }, "strip", z.ZodTypeAny, {
+                message: string;
+                type: "date";
+                minimumAge?: number | undefined;
+                maximumAge?: number | undefined;
+            }, {
+                message: string;
+                type: "date";
+                minimumAge?: number | undefined;
+                maximumAge?: number | undefined;
+            }>]>, "many">>;
+        } & {
+            attributes: z.ZodObject<{
+                label: z.ZodString;
+                name: z.ZodOptional<z.ZodString>;
+                placeholder: z.ZodOptional<z.ZodString>;
+                helperText: z.ZodOptional<z.ZodString>;
+                countryField: z.ZodOptional<z.ZodString>;
+                internalId: z.ZodOptional<z.ZodString>;
+            } & {
+                type: z.ZodLiteral<"currency">;
+                currency: z.ZodOptional<z.ZodObject<{
+                    symbol: z.ZodString;
+                    code: z.ZodString;
+                }, "strip", z.ZodTypeAny, {
+                    symbol: string;
+                    code: string;
+                }, {
+                    symbol: string;
+                    code: string;
+                }>>;
+            }, "strip", z.ZodTypeAny, {
+                type: "currency";
+                label: string;
+                name?: string | undefined;
+                placeholder?: string | undefined;
+                helperText?: string | undefined;
+                countryField?: string | undefined;
+                internalId?: string | undefined;
+                currency?: {
+                    symbol: string;
+                    code: string;
+                } | undefined;
+            }, {
+                type: "currency";
+                label: string;
+                name?: string | undefined;
+                placeholder?: string | undefined;
+                helperText?: string | undefined;
+                countryField?: string | undefined;
+                internalId?: string | undefined;
+                currency?: {
+                    symbol: string;
+                    code: string;
+                } | undefined;
+            }>;
+        }, "strip", z.ZodTypeAny, {
+            validation: ({
+                value: true;
+                message: string;
+                type: "required";
+            } | {
+                message: string;
+                type: "regex";
+                value?: any;
+                preset?: string | undefined;
+            } | {
+                message: string;
+                type: "date";
+                minimumAge?: number | undefined;
+                maximumAge?: number | undefined;
+            })[];
+            type: "input";
+            id: string;
+            config: {
+                spektrDataField: string;
+                prefillDefaultValue: boolean;
+                prefillSpektrDataField?: string | undefined;
+                value?: string | number | boolean | null | undefined;
+                defaultValue?: string | number | boolean | null | undefined;
+            };
+            isStructured: boolean;
+            attributes: {
+                type: "currency";
+                label: string;
+                name?: string | undefined;
+                placeholder?: string | undefined;
+                helperText?: string | undefined;
+                countryField?: string | undefined;
+                internalId?: string | undefined;
+                currency?: {
+                    symbol: string;
+                    code: string;
+                } | undefined;
+            };
+            value?: string | undefined;
+            ui?: {
+                style: {
+                    width?: string | undefined;
+                };
+            } | undefined;
+            customerFieldId?: string | undefined;
+        }, {
+            type: "input";
+            id: string;
+            config: {
+                spektrDataField: string;
+                prefillDefaultValue?: boolean | undefined;
+                prefillSpektrDataField?: string | undefined;
+                value?: string | number | boolean | null | undefined;
+                defaultValue?: string | number | boolean | null | undefined;
+            };
+            attributes: {
+                type: "currency";
+                label: string;
+                name?: string | undefined;
+                placeholder?: string | undefined;
+                helperText?: string | undefined;
+                countryField?: string | undefined;
+                internalId?: string | undefined;
+                currency?: {
+                    symbol: string;
+                    code: string;
+                } | undefined;
+            };
+            value?: string | undefined;
+            validation?: ({
+                value: true;
+                message: string;
+                type: "required";
+            } | {
+                message: string;
+                type: "regex";
+                value?: any;
+                preset?: string | undefined;
+            } | {
+                message: string;
+                type: "date";
+                minimumAge?: number | undefined;
+                maximumAge?: number | undefined;
+            })[] | undefined;
+            isStructured?: boolean | undefined;
+            ui?: {
+                style: {
+                    width?: string | undefined;
+                };
+            } | undefined;
+            customerFieldId?: string | undefined;
+        }>, z.ZodObject<{
+            id: z.ZodString;
+            config: z.ZodObject<{
+                spektrDataField: z.ZodString;
+                prefillDefaultValue: z.ZodDefault<z.ZodOptional<z.ZodBoolean>>;
+                prefillSpektrDataField: z.ZodOptional<z.ZodString>;
+                value: z.ZodOptional<z.ZodUnion<[z.ZodString, z.ZodNumber, z.ZodBoolean, z.ZodNull]>>;
+                defaultValue: z.ZodOptional<z.ZodUnion<[z.ZodString, z.ZodNumber, z.ZodBoolean, z.ZodNull]>>;
+            }, "strip", z.ZodTypeAny, {
+                spektrDataField: string;
+                prefillDefaultValue: boolean;
+                prefillSpektrDataField?: string | undefined;
+                value?: string | number | boolean | null | undefined;
+                defaultValue?: string | number | boolean | null | undefined;
+            }, {
+                spektrDataField: string;
+                prefillDefaultValue?: boolean | undefined;
+                prefillSpektrDataField?: string | undefined;
+                value?: string | number | boolean | null | undefined;
+                defaultValue?: string | number | boolean | null | undefined;
+            }>;
+            isStructured: z.ZodDefault<z.ZodBoolean>;
+            ui: z.ZodOptional<z.ZodObject<{
+                style: z.ZodObject<{
+                    width: z.ZodOptional<z.ZodString>;
+                }, "strip", z.ZodTypeAny, {
+                    width?: string | undefined;
+                }, {
+                    width?: string | undefined;
+                }>;
+            }, "strip", z.ZodTypeAny, {
+                style: {
+                    width?: string | undefined;
+                };
+            }, {
+                style: {
+                    width?: string | undefined;
+                };
+            }>>;
+            customerFieldId: z.ZodOptional<z.ZodString>;
+        } & {
+            type: z.ZodLiteral<"input">;
+            value: z.ZodOptional<z.ZodString>;
+            attributes: z.ZodObject<{
+                label: z.ZodString;
+                name: z.ZodOptional<z.ZodString>;
+                type: z.ZodDefault<z.ZodOptional<z.ZodString>>;
+                placeholder: z.ZodOptional<z.ZodString>;
+                helperText: z.ZodOptional<z.ZodString>;
+                countryField: z.ZodOptional<z.ZodString>;
+                internalId: z.ZodOptional<z.ZodString>;
+            }, "strip", z.ZodTypeAny, {
+                type: string;
+                label: string;
+                name?: string | undefined;
+                placeholder?: string | undefined;
+                helperText?: string | undefined;
+                countryField?: string | undefined;
+                internalId?: string | undefined;
+            }, {
+                label: string;
+                type?: string | undefined;
+                name?: string | undefined;
+                placeholder?: string | undefined;
+                helperText?: string | undefined;
+                countryField?: string | undefined;
+                internalId?: string | undefined;
+            }>;
+            validation: z.ZodDefault<z.ZodArray<z.ZodUnion<[z.ZodObject<{
+                type: z.ZodLiteral<"required">;
+                value: z.ZodLiteral<true>;
+                message: z.ZodString;
+            }, "strip", z.ZodTypeAny, {
+                value: true;
+                message: string;
+                type: "required";
+            }, {
+                value: true;
+                message: string;
+                type: "required";
+            }>, z.ZodObject<{
+                type: z.ZodLiteral<"regex">;
+                value: z.ZodAny;
+                preset: z.ZodOptional<z.ZodString>;
+                message: z.ZodString;
+            }, "strip", z.ZodTypeAny, {
+                message: string;
+                type: "regex";
+                value?: any;
+                preset?: string | undefined;
+            }, {
+                message: string;
+                type: "regex";
+                value?: any;
+                preset?: string | undefined;
+            }>, z.ZodObject<{
+                type: z.ZodLiteral<"date">;
+                minimumAge: z.ZodOptional<z.ZodNumber>;
+                maximumAge: z.ZodOptional<z.ZodNumber>;
+                message: z.ZodString;
+            }, "strip", z.ZodTypeAny, {
+                message: string;
+                type: "date";
+                minimumAge?: number | undefined;
+                maximumAge?: number | undefined;
+            }, {
+                message: string;
+                type: "date";
+                minimumAge?: number | undefined;
+                maximumAge?: number | undefined;
+            }>]>, "many">>;
+        }, "strip", z.ZodTypeAny, {
+            validation: ({
+                value: true;
+                message: string;
+                type: "required";
+            } | {
+                message: string;
+                type: "regex";
+                value?: any;
+                preset?: string | undefined;
+            } | {
+                message: string;
+                type: "date";
+                minimumAge?: number | undefined;
+                maximumAge?: number | undefined;
+            })[];
+            type: "input";
+            id: string;
+            config: {
+                spektrDataField: string;
+                prefillDefaultValue: boolean;
+                prefillSpektrDataField?: string | undefined;
+                value?: string | number | boolean | null | undefined;
+                defaultValue?: string | number | boolean | null | undefined;
+            };
+            isStructured: boolean;
+            attributes: {
+                type: string;
+                label: string;
+                name?: string | undefined;
+                placeholder?: string | undefined;
+                helperText?: string | undefined;
+                countryField?: string | undefined;
+                internalId?: string | undefined;
+            };
+            value?: string | undefined;
+            ui?: {
+                style: {
+                    width?: string | undefined;
+                };
+            } | undefined;
+            customerFieldId?: string | undefined;
+        }, {
+            type: "input";
+            id: string;
+            config: {
+                spektrDataField: string;
+                prefillDefaultValue?: boolean | undefined;
+                prefillSpektrDataField?: string | undefined;
+                value?: string | number | boolean | null | undefined;
+                defaultValue?: string | number | boolean | null | undefined;
+            };
+            attributes: {
+                label: string;
+                type?: string | undefined;
+                name?: string | undefined;
+                placeholder?: string | undefined;
+                helperText?: string | undefined;
+                countryField?: string | undefined;
+                internalId?: string | undefined;
+            };
+            value?: string | undefined;
+            validation?: ({
+                value: true;
+                message: string;
+                type: "required";
+            } | {
+                message: string;
+                type: "regex";
+                value?: any;
+                preset?: string | undefined;
+            } | {
+                message: string;
+                type: "date";
+                minimumAge?: number | undefined;
+                maximumAge?: number | undefined;
+            })[] | undefined;
+            isStructured?: boolean | undefined;
+            ui?: {
+                style: {
+                    width?: string | undefined;
+                };
+            } | undefined;
+            customerFieldId?: string | undefined;
+        }>, z.ZodObject<{
+            id: z.ZodString;
+            config: z.ZodObject<{
+                spektrDataField: z.ZodString;
+                prefillDefaultValue: z.ZodDefault<z.ZodOptional<z.ZodBoolean>>;
+                prefillSpektrDataField: z.ZodOptional<z.ZodString>;
+                value: z.ZodOptional<z.ZodUnion<[z.ZodString, z.ZodNumber, z.ZodBoolean, z.ZodNull]>>;
+                defaultValue: z.ZodOptional<z.ZodUnion<[z.ZodString, z.ZodNumber, z.ZodBoolean, z.ZodNull]>>;
+            }, "strip", z.ZodTypeAny, {
+                spektrDataField: string;
+                prefillDefaultValue: boolean;
+                prefillSpektrDataField?: string | undefined;
+                value?: string | number | boolean | null | undefined;
+                defaultValue?: string | number | boolean | null | undefined;
+            }, {
+                spektrDataField: string;
+                prefillDefaultValue?: boolean | undefined;
+                prefillSpektrDataField?: string | undefined;
+                value?: string | number | boolean | null | undefined;
+                defaultValue?: string | number | boolean | null | undefined;
+            }>;
+            isStructured: z.ZodDefault<z.ZodBoolean>;
+            ui: z.ZodOptional<z.ZodObject<{
+                style: z.ZodObject<{
+                    width: z.ZodOptional<z.ZodString>;
+                }, "strip", z.ZodTypeAny, {
+                    width?: string | undefined;
+                }, {
+                    width?: string | undefined;
+                }>;
+            }, "strip", z.ZodTypeAny, {
+                style: {
+                    width?: string | undefined;
+                };
+            }, {
+                style: {
+                    width?: string | undefined;
+                };
+            }>>;
+            customerFieldId: z.ZodOptional<z.ZodString>;
+        } & {
+            type: z.ZodLiteral<"select">;
+            attributes: z.ZodObject<{
+                label: z.ZodString;
+                name: z.ZodOptional<z.ZodString>;
+                placeholder: z.ZodOptional<z.ZodString>;
+                options: z.ZodArray<z.ZodObject<{
+                    value: z.ZodString;
+                    label: z.ZodString;
+                }, "strip", z.ZodTypeAny, {
+                    value: string;
+                    label: string;
+                }, {
+                    value: string;
+                    label: string;
+                }>, "many">;
+                helperText: z.ZodOptional<z.ZodString>;
+                internalId: z.ZodOptional<z.ZodString>;
+            }, "strip", z.ZodTypeAny, {
+                options: {
+                    value: string;
+                    label: string;
+                }[];
+                label: string;
+                name?: string | undefined;
+                placeholder?: string | undefined;
+                helperText?: string | undefined;
+                internalId?: string | undefined;
+            }, {
+                options: {
+                    value: string;
+                    label: string;
+                }[];
+                label: string;
+                name?: string | undefined;
+                placeholder?: string | undefined;
+                helperText?: string | undefined;
+                internalId?: string | undefined;
+            }>;
+            validation: z.ZodArray<z.ZodUnion<[z.ZodObject<{
+                type: z.ZodLiteral<"required">;
+                value: z.ZodLiteral<true>;
+                message: z.ZodString;
+            }, "strip", z.ZodTypeAny, {
+                value: true;
+                message: string;
+                type: "required";
+            }, {
+                value: true;
+                message: string;
+                type: "required";
+            }>, z.ZodObject<{
+                type: z.ZodLiteral<"regex">;
+                value: z.ZodAny;
+                preset: z.ZodOptional<z.ZodString>;
+                message: z.ZodString;
+            }, "strip", z.ZodTypeAny, {
+                message: string;
+                type: "regex";
+                value?: any;
+                preset?: string | undefined;
+            }, {
+                message: string;
+                type: "regex";
+                value?: any;
+                preset?: string | undefined;
+            }>, z.ZodObject<{
+                type: z.ZodLiteral<"date">;
+                minimumAge: z.ZodOptional<z.ZodNumber>;
+                maximumAge: z.ZodOptional<z.ZodNumber>;
+                message: z.ZodString;
+            }, "strip", z.ZodTypeAny, {
+                message: string;
+                type: "date";
+                minimumAge?: number | undefined;
+                maximumAge?: number | undefined;
+            }, {
+                message: string;
+                type: "date";
+                minimumAge?: number | undefined;
+                maximumAge?: number | undefined;
+            }>]>, "many">;
+        }, "strip", z.ZodTypeAny, {
+            validation: ({
+                value: true;
+                message: string;
+                type: "required";
+            } | {
+                message: string;
+                type: "regex";
+                value?: any;
+                preset?: string | undefined;
+            } | {
+                message: string;
+                type: "date";
+                minimumAge?: number | undefined;
+                maximumAge?: number | undefined;
+            })[];
+            type: "select";
+            id: string;
+            config: {
+                spektrDataField: string;
+                prefillDefaultValue: boolean;
+                prefillSpektrDataField?: string | undefined;
+                value?: string | number | boolean | null | undefined;
+                defaultValue?: string | number | boolean | null | undefined;
+            };
+            isStructured: boolean;
+            attributes: {
+                options: {
+                    value: string;
+                    label: string;
+                }[];
+                label: string;
+                name?: string | undefined;
+                placeholder?: string | undefined;
+                helperText?: string | undefined;
+                internalId?: string | undefined;
+            };
+            ui?: {
+                style: {
+                    width?: string | undefined;
+                };
+            } | undefined;
+            customerFieldId?: string | undefined;
+        }, {
+            validation: ({
+                value: true;
+                message: string;
+                type: "required";
+            } | {
+                message: string;
+                type: "regex";
+                value?: any;
+                preset?: string | undefined;
+            } | {
+                message: string;
+                type: "date";
+                minimumAge?: number | undefined;
+                maximumAge?: number | undefined;
+            })[];
+            type: "select";
+            id: string;
+            config: {
+                spektrDataField: string;
+                prefillDefaultValue?: boolean | undefined;
+                prefillSpektrDataField?: string | undefined;
+                value?: string | number | boolean | null | undefined;
+                defaultValue?: string | number | boolean | null | undefined;
+            };
+            attributes: {
+                options: {
+                    value: string;
+                    label: string;
+                }[];
+                label: string;
+                name?: string | undefined;
+                placeholder?: string | undefined;
+                helperText?: string | undefined;
+                internalId?: string | undefined;
+            };
+            isStructured?: boolean | undefined;
+            ui?: {
+                style: {
+                    width?: string | undefined;
+                };
+            } | undefined;
+            customerFieldId?: string | undefined;
+        }>, z.ZodObject<{
+            id: z.ZodString;
+            config: z.ZodObject<{
+                spektrDataField: z.ZodString;
+                prefillDefaultValue: z.ZodDefault<z.ZodOptional<z.ZodBoolean>>;
+                prefillSpektrDataField: z.ZodOptional<z.ZodString>;
+                value: z.ZodOptional<z.ZodUnion<[z.ZodString, z.ZodNumber, z.ZodBoolean, z.ZodNull]>>;
+                defaultValue: z.ZodOptional<z.ZodUnion<[z.ZodString, z.ZodNumber, z.ZodBoolean, z.ZodNull]>>;
+            }, "strip", z.ZodTypeAny, {
+                spektrDataField: string;
+                prefillDefaultValue: boolean;
+                prefillSpektrDataField?: string | undefined;
+                value?: string | number | boolean | null | undefined;
+                defaultValue?: string | number | boolean | null | undefined;
+            }, {
+                spektrDataField: string;
+                prefillDefaultValue?: boolean | undefined;
+                prefillSpektrDataField?: string | undefined;
+                value?: string | number | boolean | null | undefined;
+                defaultValue?: string | number | boolean | null | undefined;
+            }>;
+            isStructured: z.ZodDefault<z.ZodBoolean>;
+            ui: z.ZodOptional<z.ZodObject<{
+                style: z.ZodObject<{
+                    width: z.ZodOptional<z.ZodString>;
+                }, "strip", z.ZodTypeAny, {
+                    width?: string | undefined;
+                }, {
+                    width?: string | undefined;
+                }>;
+            }, "strip", z.ZodTypeAny, {
+                style: {
+                    width?: string | undefined;
+                };
+            }, {
+                style: {
+                    width?: string | undefined;
+                };
+            }>>;
+            customerFieldId: z.ZodOptional<z.ZodString>;
+        } & {
+            type: z.ZodUnion<[z.ZodUnion<[z.ZodLiteral<"radio">, z.ZodLiteral<"checkbox">]>, z.ZodLiteral<"optionSwitch">]>;
+            attributes: z.ZodObject<{
+                label: z.ZodString;
+                name: z.ZodOptional<z.ZodString>;
+                options: z.ZodArray<z.ZodString, "many">;
+                placeholder: z.ZodOptional<z.ZodString>;
+                helperText: z.ZodOptional<z.ZodString>;
+                internalId: z.ZodOptional<z.ZodString>;
+            }, "strip", z.ZodTypeAny, {
+                options: string[];
+                label: string;
+                name?: string | undefined;
+                placeholder?: string | undefined;
+                helperText?: string | undefined;
+                internalId?: string | undefined;
+            }, {
+                options: string[];
+                label: string;
+                name?: string | undefined;
+                placeholder?: string | undefined;
+                helperText?: string | undefined;
+                internalId?: string | undefined;
+            }>;
+            validation: z.ZodArray<z.ZodUnion<[z.ZodObject<{
+                type: z.ZodLiteral<"required">;
+                value: z.ZodLiteral<true>;
+                message: z.ZodString;
+            }, "strip", z.ZodTypeAny, {
+                value: true;
+                message: string;
+                type: "required";
+            }, {
+                value: true;
+                message: string;
+                type: "required";
+            }>, z.ZodObject<{
+                type: z.ZodLiteral<"regex">;
+                value: z.ZodAny;
+                preset: z.ZodOptional<z.ZodString>;
+                message: z.ZodString;
+            }, "strip", z.ZodTypeAny, {
+                message: string;
+                type: "regex";
+                value?: any;
+                preset?: string | undefined;
+            }, {
+                message: string;
+                type: "regex";
+                value?: any;
+                preset?: string | undefined;
+            }>, z.ZodObject<{
+                type: z.ZodLiteral<"date">;
+                minimumAge: z.ZodOptional<z.ZodNumber>;
+                maximumAge: z.ZodOptional<z.ZodNumber>;
+                message: z.ZodString;
+            }, "strip", z.ZodTypeAny, {
+                message: string;
+                type: "date";
+                minimumAge?: number | undefined;
+                maximumAge?: number | undefined;
+            }, {
+                message: string;
+                type: "date";
+                minimumAge?: number | undefined;
+                maximumAge?: number | undefined;
+            }>]>, "many">;
+        }, "strip", z.ZodTypeAny, {
+            validation: ({
+                value: true;
+                message: string;
+                type: "required";
+            } | {
+                message: string;
+                type: "regex";
+                value?: any;
+                preset?: string | undefined;
+            } | {
+                message: string;
+                type: "date";
+                minimumAge?: number | undefined;
+                maximumAge?: number | undefined;
+            })[];
+            type: "radio" | "checkbox" | "optionSwitch";
+            id: string;
+            config: {
+                spektrDataField: string;
+                prefillDefaultValue: boolean;
+                prefillSpektrDataField?: string | undefined;
+                value?: string | number | boolean | null | undefined;
+                defaultValue?: string | number | boolean | null | undefined;
+            };
+            isStructured: boolean;
+            attributes: {
+                options: string[];
+                label: string;
+                name?: string | undefined;
+                placeholder?: string | undefined;
+                helperText?: string | undefined;
+                internalId?: string | undefined;
+            };
+            ui?: {
+                style: {
+                    width?: string | undefined;
+                };
+            } | undefined;
+            customerFieldId?: string | undefined;
+        }, {
+            validation: ({
+                value: true;
+                message: string;
+                type: "required";
+            } | {
+                message: string;
+                type: "regex";
+                value?: any;
+                preset?: string | undefined;
+            } | {
+                message: string;
+                type: "date";
+                minimumAge?: number | undefined;
+                maximumAge?: number | undefined;
+            })[];
+            type: "radio" | "checkbox" | "optionSwitch";
+            id: string;
+            config: {
+                spektrDataField: string;
+                prefillDefaultValue?: boolean | undefined;
+                prefillSpektrDataField?: string | undefined;
+                value?: string | number | boolean | null | undefined;
+                defaultValue?: string | number | boolean | null | undefined;
+            };
+            attributes: {
+                options: string[];
+                label: string;
+                name?: string | undefined;
+                placeholder?: string | undefined;
+                helperText?: string | undefined;
+                internalId?: string | undefined;
+            };
+            isStructured?: boolean | undefined;
+            ui?: {
+                style: {
+                    width?: string | undefined;
+                };
+            } | undefined;
+            customerFieldId?: string | undefined;
+        }>, z.ZodObject<{
+            id: z.ZodString;
+            config: z.ZodObject<{
+                spektrDataField: z.ZodString;
+                prefillDefaultValue: z.ZodDefault<z.ZodOptional<z.ZodBoolean>>;
+                prefillSpektrDataField: z.ZodOptional<z.ZodString>;
+                value: z.ZodOptional<z.ZodUnion<[z.ZodString, z.ZodNumber, z.ZodBoolean, z.ZodNull]>>;
+                defaultValue: z.ZodOptional<z.ZodUnion<[z.ZodString, z.ZodNumber, z.ZodBoolean, z.ZodNull]>>;
+            }, "strip", z.ZodTypeAny, {
+                spektrDataField: string;
+                prefillDefaultValue: boolean;
+                prefillSpektrDataField?: string | undefined;
+                value?: string | number | boolean | null | undefined;
+                defaultValue?: string | number | boolean | null | undefined;
+            }, {
+                spektrDataField: string;
+                prefillDefaultValue?: boolean | undefined;
+                prefillSpektrDataField?: string | undefined;
+                value?: string | number | boolean | null | undefined;
+                defaultValue?: string | number | boolean | null | undefined;
+            }>;
+            isStructured: z.ZodDefault<z.ZodBoolean>;
+            ui: z.ZodOptional<z.ZodObject<{
+                style: z.ZodObject<{
+                    width: z.ZodOptional<z.ZodString>;
+                }, "strip", z.ZodTypeAny, {
+                    width?: string | undefined;
+                }, {
+                    width?: string | undefined;
+                }>;
+            }, "strip", z.ZodTypeAny, {
+                style: {
+                    width?: string | undefined;
+                };
+            }, {
+                style: {
+                    width?: string | undefined;
+                };
+            }>>;
+            customerFieldId: z.ZodOptional<z.ZodString>;
+        } & {
+            type: z.ZodLiteral<"file">;
+            attributes: z.ZodObject<{
+                label: z.ZodString;
+                name: z.ZodOptional<z.ZodString>;
+                fileType: z.ZodString;
+                placeholder: z.ZodOptional<z.ZodString>;
+                helperText: z.ZodOptional<z.ZodString>;
+                internalId: z.ZodOptional<z.ZodString>;
+            }, "strip", z.ZodTypeAny, {
+                label: string;
+                fileType: string;
+                name?: string | undefined;
+                placeholder?: string | undefined;
+                helperText?: string | undefined;
+                internalId?: string | undefined;
+            }, {
+                label: string;
+                fileType: string;
+                name?: string | undefined;
+                placeholder?: string | undefined;
+                helperText?: string | undefined;
+                internalId?: string | undefined;
+            }>;
+            validation: z.ZodArray<z.ZodUnion<[z.ZodObject<{
+                type: z.ZodLiteral<"required">;
+                value: z.ZodLiteral<true>;
+                message: z.ZodString;
+            }, "strip", z.ZodTypeAny, {
+                value: true;
+                message: string;
+                type: "required";
+            }, {
+                value: true;
+                message: string;
+                type: "required";
+            }>, z.ZodObject<{
+                type: z.ZodLiteral<"regex">;
+                value: z.ZodAny;
+                preset: z.ZodOptional<z.ZodString>;
+                message: z.ZodString;
+            }, "strip", z.ZodTypeAny, {
+                message: string;
+                type: "regex";
+                value?: any;
+                preset?: string | undefined;
+            }, {
+                message: string;
+                type: "regex";
+                value?: any;
+                preset?: string | undefined;
+            }>, z.ZodObject<{
+                type: z.ZodLiteral<"date">;
+                minimumAge: z.ZodOptional<z.ZodNumber>;
+                maximumAge: z.ZodOptional<z.ZodNumber>;
+                message: z.ZodString;
+            }, "strip", z.ZodTypeAny, {
+                message: string;
+                type: "date";
+                minimumAge?: number | undefined;
+                maximumAge?: number | undefined;
+            }, {
+                message: string;
+                type: "date";
+                minimumAge?: number | undefined;
+                maximumAge?: number | undefined;
+            }>]>, "many">;
+        }, "strip", z.ZodTypeAny, {
+            validation: ({
+                value: true;
+                message: string;
+                type: "required";
+            } | {
+                message: string;
+                type: "regex";
+                value?: any;
+                preset?: string | undefined;
+            } | {
+                message: string;
+                type: "date";
+                minimumAge?: number | undefined;
+                maximumAge?: number | undefined;
+            })[];
+            type: "file";
+            id: string;
+            config: {
+                spektrDataField: string;
+                prefillDefaultValue: boolean;
+                prefillSpektrDataField?: string | undefined;
+                value?: string | number | boolean | null | undefined;
+                defaultValue?: string | number | boolean | null | undefined;
+            };
+            isStructured: boolean;
+            attributes: {
+                label: string;
+                fileType: string;
+                name?: string | undefined;
+                placeholder?: string | undefined;
+                helperText?: string | undefined;
+                internalId?: string | undefined;
+            };
+            ui?: {
+                style: {
+                    width?: string | undefined;
+                };
+            } | undefined;
+            customerFieldId?: string | undefined;
+        }, {
+            validation: ({
+                value: true;
+                message: string;
+                type: "required";
+            } | {
+                message: string;
+                type: "regex";
+                value?: any;
+                preset?: string | undefined;
+            } | {
+                message: string;
+                type: "date";
+                minimumAge?: number | undefined;
+                maximumAge?: number | undefined;
+            })[];
+            type: "file";
+            id: string;
+            config: {
+                spektrDataField: string;
+                prefillDefaultValue?: boolean | undefined;
+                prefillSpektrDataField?: string | undefined;
+                value?: string | number | boolean | null | undefined;
+                defaultValue?: string | number | boolean | null | undefined;
+            };
+            attributes: {
+                label: string;
+                fileType: string;
+                name?: string | undefined;
+                placeholder?: string | undefined;
+                helperText?: string | undefined;
+                internalId?: string | undefined;
+            };
+            isStructured?: boolean | undefined;
+            ui?: {
+                style: {
+                    width?: string | undefined;
+                };
+            } | undefined;
+            customerFieldId?: string | undefined;
+        }>, z.ZodObject<{
+            id: z.ZodString;
+            config: z.ZodObject<{
+                spektrDataField: z.ZodString;
+                prefillDefaultValue: z.ZodDefault<z.ZodOptional<z.ZodBoolean>>;
+                prefillSpektrDataField: z.ZodOptional<z.ZodString>;
+                value: z.ZodOptional<z.ZodUnion<[z.ZodString, z.ZodNumber, z.ZodBoolean, z.ZodNull]>>;
+                defaultValue: z.ZodOptional<z.ZodUnion<[z.ZodString, z.ZodNumber, z.ZodBoolean, z.ZodNull]>>;
+            }, "strip", z.ZodTypeAny, {
+                spektrDataField: string;
+                prefillDefaultValue: boolean;
+                prefillSpektrDataField?: string | undefined;
+                value?: string | number | boolean | null | undefined;
+                defaultValue?: string | number | boolean | null | undefined;
+            }, {
+                spektrDataField: string;
+                prefillDefaultValue?: boolean | undefined;
+                prefillSpektrDataField?: string | undefined;
+                value?: string | number | boolean | null | undefined;
+                defaultValue?: string | number | boolean | null | undefined;
+            }>;
+            isStructured: z.ZodDefault<z.ZodBoolean>;
+            ui: z.ZodOptional<z.ZodObject<{
+                style: z.ZodObject<{
+                    width: z.ZodOptional<z.ZodString>;
+                }, "strip", z.ZodTypeAny, {
+                    width?: string | undefined;
+                }, {
+                    width?: string | undefined;
+                }>;
+            }, "strip", z.ZodTypeAny, {
+                style: {
+                    width?: string | undefined;
+                };
+            }, {
+                style: {
+                    width?: string | undefined;
+                };
+            }>>;
+            customerFieldId: z.ZodOptional<z.ZodString>;
+        } & {
+            type: z.ZodLiteral<"select">;
+            attributes: z.ZodObject<{
+                label: z.ZodString;
+                name: z.ZodOptional<z.ZodString>;
+                placeholder: z.ZodOptional<z.ZodString>;
+                options: z.ZodArray<z.ZodObject<{
+                    value: z.ZodString;
+                    label: z.ZodString;
+                }, "strip", z.ZodTypeAny, {
+                    value: string;
+                    label: string;
+                }, {
+                    value: string;
+                    label: string;
+                }>, "many">;
+                helperText: z.ZodOptional<z.ZodString>;
+                internalId: z.ZodOptional<z.ZodString>;
+            }, "strip", z.ZodTypeAny, {
+                options: {
+                    value: string;
+                    label: string;
+                }[];
+                label: string;
+                name?: string | undefined;
+                placeholder?: string | undefined;
+                helperText?: string | undefined;
+                internalId?: string | undefined;
+            }, {
+                options: {
+                    value: string;
+                    label: string;
+                }[];
+                label: string;
+                name?: string | undefined;
+                placeholder?: string | undefined;
+                helperText?: string | undefined;
+                internalId?: string | undefined;
+            }>;
+            validation: z.ZodArray<z.ZodUnion<[z.ZodObject<{
+                type: z.ZodLiteral<"required">;
+                value: z.ZodLiteral<true>;
+                message: z.ZodString;
+            }, "strip", z.ZodTypeAny, {
+                value: true;
+                message: string;
+                type: "required";
+            }, {
+                value: true;
+                message: string;
+                type: "required";
+            }>, z.ZodObject<{
+                type: z.ZodLiteral<"regex">;
+                value: z.ZodAny;
+                preset: z.ZodOptional<z.ZodString>;
+                message: z.ZodString;
+            }, "strip", z.ZodTypeAny, {
+                message: string;
+                type: "regex";
+                value?: any;
+                preset?: string | undefined;
+            }, {
+                message: string;
+                type: "regex";
+                value?: any;
+                preset?: string | undefined;
+            }>, z.ZodObject<{
+                type: z.ZodLiteral<"date">;
+                minimumAge: z.ZodOptional<z.ZodNumber>;
+                maximumAge: z.ZodOptional<z.ZodNumber>;
+                message: z.ZodString;
+            }, "strip", z.ZodTypeAny, {
+                message: string;
+                type: "date";
+                minimumAge?: number | undefined;
+                maximumAge?: number | undefined;
+            }, {
+                message: string;
+                type: "date";
+                minimumAge?: number | undefined;
+                maximumAge?: number | undefined;
+            }>]>, "many">;
+        }, "strip", z.ZodTypeAny, {
+            validation: ({
+                value: true;
+                message: string;
+                type: "required";
+            } | {
+                message: string;
+                type: "regex";
+                value?: any;
+                preset?: string | undefined;
+            } | {
+                message: string;
+                type: "date";
+                minimumAge?: number | undefined;
+                maximumAge?: number | undefined;
+            })[];
+            type: "select";
+            id: string;
+            config: {
+                spektrDataField: string;
+                prefillDefaultValue: boolean;
+                prefillSpektrDataField?: string | undefined;
+                value?: string | number | boolean | null | undefined;
+                defaultValue?: string | number | boolean | null | undefined;
+            };
+            isStructured: boolean;
+            attributes: {
+                options: {
+                    value: string;
+                    label: string;
+                }[];
+                label: string;
+                name?: string | undefined;
+                placeholder?: string | undefined;
+                helperText?: string | undefined;
+                internalId?: string | undefined;
+            };
+            ui?: {
+                style: {
+                    width?: string | undefined;
+                };
+            } | undefined;
+            customerFieldId?: string | undefined;
+        }, {
+            validation: ({
+                value: true;
+                message: string;
+                type: "required";
+            } | {
+                message: string;
+                type: "regex";
+                value?: any;
+                preset?: string | undefined;
+            } | {
+                message: string;
+                type: "date";
+                minimumAge?: number | undefined;
+                maximumAge?: number | undefined;
+            })[];
+            type: "select";
+            id: string;
+            config: {
+                spektrDataField: string;
+                prefillDefaultValue?: boolean | undefined;
+                prefillSpektrDataField?: string | undefined;
+                value?: string | number | boolean | null | undefined;
+                defaultValue?: string | number | boolean | null | undefined;
+            };
+            attributes: {
+                options: {
+                    value: string;
+                    label: string;
+                }[];
+                label: string;
+                name?: string | undefined;
+                placeholder?: string | undefined;
+                helperText?: string | undefined;
+                internalId?: string | undefined;
+            };
+            isStructured?: boolean | undefined;
+            ui?: {
+                style: {
+                    width?: string | undefined;
+                };
+            } | undefined;
+            customerFieldId?: string | undefined;
+        }>, z.ZodObject<{
+            id: z.ZodString;
+            ui: z.ZodOptional<z.ZodObject<{
+                style: z.ZodObject<{
+                    width: z.ZodOptional<z.ZodString>;
+                }, "strip", z.ZodTypeAny, {
+                    width?: string | undefined;
+                }, {
+                    width?: string | undefined;
+                }>;
+            }, "strip", z.ZodTypeAny, {
+                style: {
+                    width?: string | undefined;
+                };
+            }, {
+                style: {
+                    width?: string | undefined;
+                };
+            }>>;
+            type: z.ZodLiteral<"title">;
+            attributes: z.ZodObject<{
+                content: z.ZodString;
+            }, "strip", z.ZodTypeAny, {
+                content: string;
+            }, {
+                content: string;
+            }>;
+        }, "strip", z.ZodTypeAny, {
+            type: "title";
+            id: string;
+            attributes: {
+                content: string;
+            };
+            ui?: {
+                style: {
+                    width?: string | undefined;
+                };
+            } | undefined;
+        }, {
+            type: "title";
+            id: string;
+            attributes: {
+                content: string;
+            };
+            ui?: {
+                style: {
+                    width?: string | undefined;
+                };
+            } | undefined;
+        }>, z.ZodObject<{
+            id: z.ZodString;
+            ui: z.ZodOptional<z.ZodObject<{
+                style: z.ZodObject<{
+                    width: z.ZodOptional<z.ZodString>;
+                }, "strip", z.ZodTypeAny, {
+                    width?: string | undefined;
+                }, {
+                    width?: string | undefined;
+                }>;
+            }, "strip", z.ZodTypeAny, {
+                style: {
+                    width?: string | undefined;
+                };
+            }, {
+                style: {
+                    width?: string | undefined;
+                };
+            }>>;
+            type: z.ZodLiteral<"paragraph">;
+            attributes: z.ZodObject<{
+                content: z.ZodString;
+            }, "strip", z.ZodTypeAny, {
+                content: string;
+            }, {
+                content: string;
+            }>;
+        }, "strip", z.ZodTypeAny, {
+            type: "paragraph";
+            id: string;
+            attributes: {
+                content: string;
+            };
+            ui?: {
+                style: {
+                    width?: string | undefined;
+                };
+            } | undefined;
+        }, {
+            type: "paragraph";
+            id: string;
+            attributes: {
+                content: string;
+            };
+            ui?: {
+                style: {
+                    width?: string | undefined;
+                };
+            } | undefined;
+        }>, z.ZodObject<{
+            id: z.ZodString;
+            ui: z.ZodOptional<z.ZodObject<{
+                style: z.ZodObject<{
+                    width: z.ZodOptional<z.ZodString>;
+                }, "strip", z.ZodTypeAny, {
+                    width?: string | undefined;
+                }, {
+                    width?: string | undefined;
+                }>;
+            }, "strip", z.ZodTypeAny, {
+                style: {
+                    width?: string | undefined;
+                };
+            }, {
+                style: {
+                    width?: string | undefined;
+                };
+            }>>;
+            type: z.ZodLiteral<"informationCallout">;
+            attributes: z.ZodObject<{
+                content: z.ZodString;
+            }, "strip", z.ZodTypeAny, {
+                content: string;
+            }, {
+                content: string;
+            }>;
+        }, "strip", z.ZodTypeAny, {
+            type: "informationCallout";
+            id: string;
+            attributes: {
+                content: string;
+            };
+            ui?: {
+                style: {
+                    width?: string | undefined;
+                };
+            } | undefined;
+        }, {
+            type: "informationCallout";
+            id: string;
+            attributes: {
+                content: string;
+            };
+            ui?: {
+                style: {
+                    width?: string | undefined;
+                };
+            } | undefined;
+        }>, z.ZodObject<{
+            id: z.ZodString;
+            ui: z.ZodOptional<z.ZodObject<{
+                style: z.ZodObject<{
+                    width: z.ZodOptional<z.ZodString>;
+                }, "strip", z.ZodTypeAny, {
+                    width?: string | undefined;
+                }, {
+                    width?: string | undefined;
+                }>;
+            }, "strip", z.ZodTypeAny, {
+                style: {
+                    width?: string | undefined;
+                };
+            }, {
+                style: {
+                    width?: string | undefined;
+                };
+            }>>;
+            type: z.ZodLiteral<"fieldsGroup">;
+        }, "strip", z.ZodTypeAny, {
+            type: "fieldsGroup";
+            id: string;
+            ui?: {
+                style: {
+                    width?: string | undefined;
+                };
+            } | undefined;
+        }, {
+            type: "fieldsGroup";
+            id: string;
+            ui?: {
+                style: {
+                    width?: string | undefined;
+                };
+            } | undefined;
+        }>, z.ZodObject<{
+            id: z.ZodString;
+            ui: z.ZodOptional<z.ZodObject<{
+                style: z.ZodObject<{
+                    width: z.ZodOptional<z.ZodString>;
+                }, "strip", z.ZodTypeAny, {
+                    width?: string | undefined;
+                }, {
+                    width?: string | undefined;
+                }>;
+            }, "strip", z.ZodTypeAny, {
+                style: {
+                    width?: string | undefined;
+                };
+            }, {
+                style: {
+                    width?: string | undefined;
+                };
+            }>>;
+            type: z.ZodLiteral<"divider">;
+        }, "strip", z.ZodTypeAny, {
+            type: "divider";
+            id: string;
+            ui?: {
+                style: {
+                    width?: string | undefined;
+                };
+            } | undefined;
+        }, {
+            type: "divider";
+            id: string;
+            ui?: {
+                style: {
+                    width?: string | undefined;
+                };
+            } | undefined;
+        }>, z.ZodObject<{
+            id: z.ZodString;
+            config: z.ZodObject<{
+                spektrDataField: z.ZodString;
+                prefillDefaultValue: z.ZodDefault<z.ZodOptional<z.ZodBoolean>>;
+                prefillSpektrDataField: z.ZodOptional<z.ZodString>;
+                value: z.ZodOptional<z.ZodUnion<[z.ZodString, z.ZodNumber, z.ZodBoolean, z.ZodNull]>>;
+                defaultValue: z.ZodOptional<z.ZodUnion<[z.ZodString, z.ZodNumber, z.ZodBoolean, z.ZodNull]>>;
+            }, "strip", z.ZodTypeAny, {
+                spektrDataField: string;
+                prefillDefaultValue: boolean;
+                prefillSpektrDataField?: string | undefined;
+                value?: string | number | boolean | null | undefined;
+                defaultValue?: string | number | boolean | null | undefined;
+            }, {
+                spektrDataField: string;
+                prefillDefaultValue?: boolean | undefined;
+                prefillSpektrDataField?: string | undefined;
+                value?: string | number | boolean | null | undefined;
+                defaultValue?: string | number | boolean | null | undefined;
+            }>;
+            isStructured: z.ZodDefault<z.ZodBoolean>;
+            ui: z.ZodOptional<z.ZodObject<{
+                style: z.ZodObject<{
+                    width: z.ZodOptional<z.ZodString>;
+                }, "strip", z.ZodTypeAny, {
+                    width?: string | undefined;
+                }, {
+                    width?: string | undefined;
+                }>;
+            }, "strip", z.ZodTypeAny, {
+                style: {
+                    width?: string | undefined;
+                };
+            }, {
+                style: {
+                    width?: string | undefined;
+                };
+            }>>;
+            customerFieldId: z.ZodOptional<z.ZodString>;
+        } & {
+            type: z.ZodLiteral<"consent">;
+            attributes: z.ZodObject<{
+                label: z.ZodString;
+                name: z.ZodOptional<z.ZodString>;
+                internalId: z.ZodOptional<z.ZodString>;
+            }, "strip", z.ZodTypeAny, {
+                label: string;
+                name?: string | undefined;
+                internalId?: string | undefined;
+            }, {
+                label: string;
+                name?: string | undefined;
+                internalId?: string | undefined;
+            }>;
+            validation: z.ZodArray<z.ZodUnion<[z.ZodObject<{
+                type: z.ZodLiteral<"required">;
+                value: z.ZodLiteral<true>;
+                message: z.ZodString;
+            }, "strip", z.ZodTypeAny, {
+                value: true;
+                message: string;
+                type: "required";
+            }, {
+                value: true;
+                message: string;
+                type: "required";
+            }>, z.ZodObject<{
+                type: z.ZodLiteral<"regex">;
+                value: z.ZodAny;
+                preset: z.ZodOptional<z.ZodString>;
+                message: z.ZodString;
+            }, "strip", z.ZodTypeAny, {
+                message: string;
+                type: "regex";
+                value?: any;
+                preset?: string | undefined;
+            }, {
+                message: string;
+                type: "regex";
+                value?: any;
+                preset?: string | undefined;
+            }>, z.ZodObject<{
+                type: z.ZodLiteral<"date">;
+                minimumAge: z.ZodOptional<z.ZodNumber>;
+                maximumAge: z.ZodOptional<z.ZodNumber>;
+                message: z.ZodString;
+            }, "strip", z.ZodTypeAny, {
+                message: string;
+                type: "date";
+                minimumAge?: number | undefined;
+                maximumAge?: number | undefined;
+            }, {
+                message: string;
+                type: "date";
+                minimumAge?: number | undefined;
+                maximumAge?: number | undefined;
+            }>]>, "many">;
+        }, "strip", z.ZodTypeAny, {
+            validation: ({
+                value: true;
+                message: string;
+                type: "required";
+            } | {
+                message: string;
+                type: "regex";
+                value?: any;
+                preset?: string | undefined;
+            } | {
+                message: string;
+                type: "date";
+                minimumAge?: number | undefined;
+                maximumAge?: number | undefined;
+            })[];
+            type: "consent";
+            id: string;
+            config: {
+                spektrDataField: string;
+                prefillDefaultValue: boolean;
+                prefillSpektrDataField?: string | undefined;
+                value?: string | number | boolean | null | undefined;
+                defaultValue?: string | number | boolean | null | undefined;
+            };
+            isStructured: boolean;
+            attributes: {
+                label: string;
+                name?: string | undefined;
+                internalId?: string | undefined;
+            };
+            ui?: {
+                style: {
+                    width?: string | undefined;
+                };
+            } | undefined;
+            customerFieldId?: string | undefined;
+        }, {
+            validation: ({
+                value: true;
+                message: string;
+                type: "required";
+            } | {
+                message: string;
+                type: "regex";
+                value?: any;
+                preset?: string | undefined;
+            } | {
+                message: string;
+                type: "date";
+                minimumAge?: number | undefined;
+                maximumAge?: number | undefined;
+            })[];
+            type: "consent";
+            id: string;
+            config: {
+                spektrDataField: string;
+                prefillDefaultValue?: boolean | undefined;
+                prefillSpektrDataField?: string | undefined;
+                value?: string | number | boolean | null | undefined;
+                defaultValue?: string | number | boolean | null | undefined;
+            };
+            attributes: {
+                label: string;
+                name?: string | undefined;
+                internalId?: string | undefined;
+            };
+            isStructured?: boolean | undefined;
+            ui?: {
+                style: {
+                    width?: string | undefined;
+                };
+            } | undefined;
+            customerFieldId?: string | undefined;
+        }>, z.ZodObject<{
+            id: z.ZodString;
+            config: z.ZodObject<{
+                spektrDataField: z.ZodString;
+                prefillDefaultValue: z.ZodDefault<z.ZodOptional<z.ZodBoolean>>;
+                prefillSpektrDataField: z.ZodOptional<z.ZodString>;
+                value: z.ZodOptional<z.ZodUnion<[z.ZodString, z.ZodNumber, z.ZodBoolean, z.ZodNull]>>;
+                defaultValue: z.ZodOptional<z.ZodUnion<[z.ZodString, z.ZodNumber, z.ZodBoolean, z.ZodNull]>>;
+            }, "strip", z.ZodTypeAny, {
+                spektrDataField: string;
+                prefillDefaultValue: boolean;
+                prefillSpektrDataField?: string | undefined;
+                value?: string | number | boolean | null | undefined;
+                defaultValue?: string | number | boolean | null | undefined;
+            }, {
+                spektrDataField: string;
+                prefillDefaultValue?: boolean | undefined;
+                prefillSpektrDataField?: string | undefined;
+                value?: string | number | boolean | null | undefined;
+                defaultValue?: string | number | boolean | null | undefined;
+            }>;
+            isStructured: z.ZodDefault<z.ZodBoolean>;
+            ui: z.ZodOptional<z.ZodObject<{
+                style: z.ZodObject<{
+                    width: z.ZodOptional<z.ZodString>;
+                }, "strip", z.ZodTypeAny, {
+                    width?: string | undefined;
+                }, {
+                    width?: string | undefined;
+                }>;
+            }, "strip", z.ZodTypeAny, {
+                style: {
+                    width?: string | undefined;
+                };
+            }, {
+                style: {
+                    width?: string | undefined;
+                };
+            }>>;
+            customerFieldId: z.ZodOptional<z.ZodString>;
+        } & {
+            type: z.ZodLiteral<"smart">;
+            value: z.ZodOptional<z.ZodString>;
+            attributes: z.ZodObject<{
+                label: z.ZodString;
+                name: z.ZodOptional<z.ZodString>;
+                placeholder: z.ZodOptional<z.ZodString>;
+                helperText: z.ZodOptional<z.ZodString>;
+                internalId: z.ZodOptional<z.ZodString>;
+            }, "strip", z.ZodTypeAny, {
+                label: string;
+                name?: string | undefined;
+                placeholder?: string | undefined;
+                helperText?: string | undefined;
+                internalId?: string | undefined;
+            }, {
+                label: string;
+                name?: string | undefined;
+                placeholder?: string | undefined;
+                helperText?: string | undefined;
+                internalId?: string | undefined;
+            }>;
+            validation: z.ZodDefault<z.ZodArray<z.ZodUnion<[z.ZodObject<{
+                type: z.ZodLiteral<"required">;
+                value: z.ZodLiteral<true>;
+                message: z.ZodString;
+            }, "strip", z.ZodTypeAny, {
+                value: true;
+                message: string;
+                type: "required";
+            }, {
+                value: true;
+                message: string;
+                type: "required";
+            }>, z.ZodObject<{
+                type: z.ZodLiteral<"regex">;
+                value: z.ZodAny;
+                preset: z.ZodOptional<z.ZodString>;
+                message: z.ZodString;
+            }, "strip", z.ZodTypeAny, {
+                message: string;
+                type: "regex";
+                value?: any;
+                preset?: string | undefined;
+            }, {
+                message: string;
+                type: "regex";
+                value?: any;
+                preset?: string | undefined;
+            }>, z.ZodObject<{
+                type: z.ZodLiteral<"date">;
+                minimumAge: z.ZodOptional<z.ZodNumber>;
+                maximumAge: z.ZodOptional<z.ZodNumber>;
+                message: z.ZodString;
+            }, "strip", z.ZodTypeAny, {
+                message: string;
+                type: "date";
+                minimumAge?: number | undefined;
+                maximumAge?: number | undefined;
+            }, {
+                message: string;
+                type: "date";
+                minimumAge?: number | undefined;
+                maximumAge?: number | undefined;
+            }>]>, "many">>;
+        }, "strip", z.ZodTypeAny, {
+            validation: ({
+                value: true;
+                message: string;
+                type: "required";
+            } | {
+                message: string;
+                type: "regex";
+                value?: any;
+                preset?: string | undefined;
+            } | {
+                message: string;
+                type: "date";
+                minimumAge?: number | undefined;
+                maximumAge?: number | undefined;
+            })[];
+            type: "smart";
+            id: string;
+            config: {
+                spektrDataField: string;
+                prefillDefaultValue: boolean;
+                prefillSpektrDataField?: string | undefined;
+                value?: string | number | boolean | null | undefined;
+                defaultValue?: string | number | boolean | null | undefined;
+            };
+            isStructured: boolean;
+            attributes: {
+                label: string;
+                name?: string | undefined;
+                placeholder?: string | undefined;
+                helperText?: string | undefined;
+                internalId?: string | undefined;
+            };
+            value?: string | undefined;
+            ui?: {
+                style: {
+                    width?: string | undefined;
+                };
+            } | undefined;
+            customerFieldId?: string | undefined;
+        }, {
+            type: "smart";
+            id: string;
+            config: {
+                spektrDataField: string;
+                prefillDefaultValue?: boolean | undefined;
+                prefillSpektrDataField?: string | undefined;
+                value?: string | number | boolean | null | undefined;
+                defaultValue?: string | number | boolean | null | undefined;
+            };
+            attributes: {
+                label: string;
+                name?: string | undefined;
+                placeholder?: string | undefined;
+                helperText?: string | undefined;
+                internalId?: string | undefined;
+            };
+            value?: string | undefined;
+            validation?: ({
+                value: true;
+                message: string;
+                type: "required";
+            } | {
+                message: string;
+                type: "regex";
+                value?: any;
+                preset?: string | undefined;
+            } | {
+                message: string;
+                type: "date";
+                minimumAge?: number | undefined;
+                maximumAge?: number | undefined;
+            })[] | undefined;
+            isStructured?: boolean | undefined;
+            ui?: {
+                style: {
+                    width?: string | undefined;
+                };
+            } | undefined;
+            customerFieldId?: string | undefined;
+        }>]>>;
+        order: z.ZodArray<z.ZodString, "many">;
+    }, "strip", z.ZodTypeAny, {
+        fields: Record<string, {
+            validation: ({
+                value: true;
+                message: string;
+                type: "required";
+            } | {
+                message: string;
+                type: "regex";
+                value?: any;
+                preset?: string | undefined;
+            } | {
+                message: string;
+                type: "date";
+                minimumAge?: number | undefined;
+                maximumAge?: number | undefined;
+            })[];
+            type: "input";
+            id: string;
+            config: {
+                spektrDataField: string;
+                prefillDefaultValue: boolean;
+                prefillSpektrDataField?: string | undefined;
+                value?: string | number | boolean | null | undefined;
+                defaultValue?: string | number | boolean | null | undefined;
+            };
+            isStructured: boolean;
+            attributes: {
+                type: string;
+                label: string;
+                name?: string | undefined;
+                placeholder?: string | undefined;
+                helperText?: string | undefined;
+                countryField?: string | undefined;
+                internalId?: string | undefined;
+            };
+            value?: string | undefined;
+            ui?: {
+                style: {
+                    width?: string | undefined;
+                };
+            } | undefined;
+            customerFieldId?: string | undefined;
+        } | {
+            validation: ({
+                value: true;
+                message: string;
+                type: "required";
+            } | {
+                message: string;
+                type: "regex";
+                value?: any;
+                preset?: string | undefined;
+            } | {
+                message: string;
+                type: "date";
+                minimumAge?: number | undefined;
+                maximumAge?: number | undefined;
+            })[];
+            type: "select";
+            id: string;
+            config: {
+                spektrDataField: string;
+                prefillDefaultValue: boolean;
+                prefillSpektrDataField?: string | undefined;
+                value?: string | number | boolean | null | undefined;
+                defaultValue?: string | number | boolean | null | undefined;
+            };
+            isStructured: boolean;
+            attributes: {
+                options: {
+                    value: string;
+                    label: string;
+                }[];
+                label: string;
+                name?: string | undefined;
+                placeholder?: string | undefined;
+                helperText?: string | undefined;
+                internalId?: string | undefined;
+            };
+            ui?: {
+                style: {
+                    width?: string | undefined;
+                };
+            } | undefined;
+            customerFieldId?: string | undefined;
+        } | {
+            validation: ({
+                value: true;
+                message: string;
+                type: "required";
+            } | {
+                message: string;
+                type: "regex";
+                value?: any;
+                preset?: string | undefined;
+            } | {
+                message: string;
+                type: "date";
+                minimumAge?: number | undefined;
+                maximumAge?: number | undefined;
+            })[];
+            type: "radio" | "checkbox" | "optionSwitch";
+            id: string;
+            config: {
+                spektrDataField: string;
+                prefillDefaultValue: boolean;
+                prefillSpektrDataField?: string | undefined;
+                value?: string | number | boolean | null | undefined;
+                defaultValue?: string | number | boolean | null | undefined;
+            };
+            isStructured: boolean;
+            attributes: {
+                options: string[];
+                label: string;
+                name?: string | undefined;
+                placeholder?: string | undefined;
+                helperText?: string | undefined;
+                internalId?: string | undefined;
+            };
+            ui?: {
+                style: {
+                    width?: string | undefined;
+                };
+            } | undefined;
+            customerFieldId?: string | undefined;
+        } | {
+            validation: ({
+                value: true;
+                message: string;
+                type: "required";
+            } | {
+                message: string;
+                type: "regex";
+                value?: any;
+                preset?: string | undefined;
+            } | {
+                message: string;
+                type: "date";
+                minimumAge?: number | undefined;
+                maximumAge?: number | undefined;
+            })[];
+            type: "file";
+            id: string;
+            config: {
+                spektrDataField: string;
+                prefillDefaultValue: boolean;
+                prefillSpektrDataField?: string | undefined;
+                value?: string | number | boolean | null | undefined;
+                defaultValue?: string | number | boolean | null | undefined;
+            };
+            isStructured: boolean;
+            attributes: {
+                label: string;
+                fileType: string;
+                name?: string | undefined;
+                placeholder?: string | undefined;
+                helperText?: string | undefined;
+                internalId?: string | undefined;
+            };
+            ui?: {
+                style: {
+                    width?: string | undefined;
+                };
+            } | undefined;
+            customerFieldId?: string | undefined;
+        } | {
+            validation: ({
+                value: true;
+                message: string;
+                type: "required";
+            } | {
+                message: string;
+                type: "regex";
+                value?: any;
+                preset?: string | undefined;
+            } | {
+                message: string;
+                type: "date";
+                minimumAge?: number | undefined;
+                maximumAge?: number | undefined;
+            })[];
+            type: "input";
+            id: string;
+            config: {
+                spektrDataField: string;
+                prefillDefaultValue: boolean;
+                prefillSpektrDataField?: string | undefined;
+                value?: string | number | boolean | null | undefined;
+                defaultValue?: string | number | boolean | null | undefined;
+            };
+            isStructured: boolean;
+            attributes: {
+                type: "date";
+                label: string;
+                name?: string | undefined;
+                placeholder?: string | undefined;
+                helperText?: string | undefined;
+                countryField?: string | undefined;
+                internalId?: string | undefined;
+                format?: string | undefined;
+                minDate?: string | undefined;
+                maxDate?: string | undefined;
+            };
+            value?: string | undefined;
+            ui?: {
+                style: {
+                    width?: string | undefined;
+                };
+            } | undefined;
+            customerFieldId?: string | undefined;
+        } | {
+            validation: ({
+                value: true;
+                message: string;
+                type: "required";
+            } | {
+                message: string;
+                type: "regex";
+                value?: any;
+                preset?: string | undefined;
+            } | {
+                message: string;
+                type: "date";
+                minimumAge?: number | undefined;
+                maximumAge?: number | undefined;
+            })[];
+            type: "input";
+            id: string;
+            config: {
+                spektrDataField: string;
+                prefillDefaultValue: boolean;
+                prefillSpektrDataField?: string | undefined;
+                value?: string | number | boolean | null | undefined;
+                defaultValue?: string | number | boolean | null | undefined;
+            };
+            isStructured: boolean;
+            attributes: {
+                type: "currency";
+                label: string;
+                name?: string | undefined;
+                placeholder?: string | undefined;
+                helperText?: string | undefined;
+                countryField?: string | undefined;
+                internalId?: string | undefined;
+                currency?: {
+                    symbol: string;
+                    code: string;
+                } | undefined;
+            };
+            value?: string | undefined;
+            ui?: {
+                style: {
+                    width?: string | undefined;
+                };
+            } | undefined;
+            customerFieldId?: string | undefined;
+        } | {
+            type: "title";
+            id: string;
+            attributes: {
+                content: string;
+            };
+            ui?: {
+                style: {
+                    width?: string | undefined;
+                };
+            } | undefined;
+        } | {
+            type: "paragraph";
+            id: string;
+            attributes: {
+                content: string;
+            };
+            ui?: {
+                style: {
+                    width?: string | undefined;
+                };
+            } | undefined;
+        } | {
+            type: "divider";
+            id: string;
+            ui?: {
+                style: {
+                    width?: string | undefined;
+                };
+            } | undefined;
+        } | {
+            validation: ({
+                value: true;
+                message: string;
+                type: "required";
+            } | {
+                message: string;
+                type: "regex";
+                value?: any;
+                preset?: string | undefined;
+            } | {
+                message: string;
+                type: "date";
+                minimumAge?: number | undefined;
+                maximumAge?: number | undefined;
+            })[];
+            type: "consent";
+            id: string;
+            config: {
+                spektrDataField: string;
+                prefillDefaultValue: boolean;
+                prefillSpektrDataField?: string | undefined;
+                value?: string | number | boolean | null | undefined;
+                defaultValue?: string | number | boolean | null | undefined;
+            };
+            isStructured: boolean;
+            attributes: {
+                label: string;
+                name?: string | undefined;
+                internalId?: string | undefined;
+            };
+            ui?: {
+                style: {
+                    width?: string | undefined;
+                };
+            } | undefined;
+            customerFieldId?: string | undefined;
+        } | {
+            validation: ({
+                value: true;
+                message: string;
+                type: "required";
+            } | {
+                message: string;
+                type: "regex";
+                value?: any;
+                preset?: string | undefined;
+            } | {
+                message: string;
+                type: "date";
+                minimumAge?: number | undefined;
+                maximumAge?: number | undefined;
+            })[];
+            type: "smart";
+            id: string;
+            config: {
+                spektrDataField: string;
+                prefillDefaultValue: boolean;
+                prefillSpektrDataField?: string | undefined;
+                value?: string | number | boolean | null | undefined;
+                defaultValue?: string | number | boolean | null | undefined;
+            };
+            isStructured: boolean;
+            attributes: {
+                label: string;
+                name?: string | undefined;
+                placeholder?: string | undefined;
+                helperText?: string | undefined;
+                internalId?: string | undefined;
+            };
+            value?: string | undefined;
+            ui?: {
+                style: {
+                    width?: string | undefined;
+                };
+            } | undefined;
+            customerFieldId?: string | undefined;
+        } | {
+            type: "informationCallout";
+            id: string;
+            attributes: {
+                content: string;
+            };
+            ui?: {
+                style: {
+                    width?: string | undefined;
+                };
+            } | undefined;
+        } | {
+            type: "fieldsGroup";
+            id: string;
+            ui?: {
+                style: {
+                    width?: string | undefined;
+                };
+            } | undefined;
+        }>;
+        order: string[];
+    }, {
+        fields: Record<string, {
+            type: "input";
+            id: string;
+            config: {
+                spektrDataField: string;
+                prefillDefaultValue?: boolean | undefined;
+                prefillSpektrDataField?: string | undefined;
+                value?: string | number | boolean | null | undefined;
+                defaultValue?: string | number | boolean | null | undefined;
+            };
+            attributes: {
+                label: string;
+                type?: string | undefined;
+                name?: string | undefined;
+                placeholder?: string | undefined;
+                helperText?: string | undefined;
+                countryField?: string | undefined;
+                internalId?: string | undefined;
+            };
+            value?: string | undefined;
+            validation?: ({
+                value: true;
+                message: string;
+                type: "required";
+            } | {
+                message: string;
+                type: "regex";
+                value?: any;
+                preset?: string | undefined;
+            } | {
+                message: string;
+                type: "date";
+                minimumAge?: number | undefined;
+                maximumAge?: number | undefined;
+            })[] | undefined;
+            isStructured?: boolean | undefined;
+            ui?: {
+                style: {
+                    width?: string | undefined;
+                };
+            } | undefined;
+            customerFieldId?: string | undefined;
+        } | {
+            validation: ({
+                value: true;
+                message: string;
+                type: "required";
+            } | {
+                message: string;
+                type: "regex";
+                value?: any;
+                preset?: string | undefined;
+            } | {
+                message: string;
+                type: "date";
+                minimumAge?: number | undefined;
+                maximumAge?: number | undefined;
+            })[];
+            type: "select";
+            id: string;
+            config: {
+                spektrDataField: string;
+                prefillDefaultValue?: boolean | undefined;
+                prefillSpektrDataField?: string | undefined;
+                value?: string | number | boolean | null | undefined;
+                defaultValue?: string | number | boolean | null | undefined;
+            };
+            attributes: {
+                options: {
+                    value: string;
+                    label: string;
+                }[];
+                label: string;
+                name?: string | undefined;
+                placeholder?: string | undefined;
+                helperText?: string | undefined;
+                internalId?: string | undefined;
+            };
+            isStructured?: boolean | undefined;
+            ui?: {
+                style: {
+                    width?: string | undefined;
+                };
+            } | undefined;
+            customerFieldId?: string | undefined;
+        } | {
+            validation: ({
+                value: true;
+                message: string;
+                type: "required";
+            } | {
+                message: string;
+                type: "regex";
+                value?: any;
+                preset?: string | undefined;
+            } | {
+                message: string;
+                type: "date";
+                minimumAge?: number | undefined;
+                maximumAge?: number | undefined;
+            })[];
+            type: "radio" | "checkbox" | "optionSwitch";
+            id: string;
+            config: {
+                spektrDataField: string;
+                prefillDefaultValue?: boolean | undefined;
+                prefillSpektrDataField?: string | undefined;
+                value?: string | number | boolean | null | undefined;
+                defaultValue?: string | number | boolean | null | undefined;
+            };
+            attributes: {
+                options: string[];
+                label: string;
+                name?: string | undefined;
+                placeholder?: string | undefined;
+                helperText?: string | undefined;
+                internalId?: string | undefined;
+            };
+            isStructured?: boolean | undefined;
+            ui?: {
+                style: {
+                    width?: string | undefined;
+                };
+            } | undefined;
+            customerFieldId?: string | undefined;
+        } | {
+            validation: ({
+                value: true;
+                message: string;
+                type: "required";
+            } | {
+                message: string;
+                type: "regex";
+                value?: any;
+                preset?: string | undefined;
+            } | {
+                message: string;
+                type: "date";
+                minimumAge?: number | undefined;
+                maximumAge?: number | undefined;
+            })[];
+            type: "file";
+            id: string;
+            config: {
+                spektrDataField: string;
+                prefillDefaultValue?: boolean | undefined;
+                prefillSpektrDataField?: string | undefined;
+                value?: string | number | boolean | null | undefined;
+                defaultValue?: string | number | boolean | null | undefined;
+            };
+            attributes: {
+                label: string;
+                fileType: string;
+                name?: string | undefined;
+                placeholder?: string | undefined;
+                helperText?: string | undefined;
+                internalId?: string | undefined;
+            };
+            isStructured?: boolean | undefined;
+            ui?: {
+                style: {
+                    width?: string | undefined;
+                };
+            } | undefined;
+            customerFieldId?: string | undefined;
+        } | {
+            type: "input";
+            id: string;
+            config: {
+                spektrDataField: string;
+                prefillDefaultValue?: boolean | undefined;
+                prefillSpektrDataField?: string | undefined;
+                value?: string | number | boolean | null | undefined;
+                defaultValue?: string | number | boolean | null | undefined;
+            };
+            attributes: {
+                type: "date";
+                label: string;
+                name?: string | undefined;
+                placeholder?: string | undefined;
+                helperText?: string | undefined;
+                countryField?: string | undefined;
+                internalId?: string | undefined;
+                format?: string | undefined;
+                minDate?: string | undefined;
+                maxDate?: string | undefined;
+            };
+            value?: string | undefined;
+            validation?: ({
+                value: true;
+                message: string;
+                type: "required";
+            } | {
+                message: string;
+                type: "regex";
+                value?: any;
+                preset?: string | undefined;
+            } | {
+                message: string;
+                type: "date";
+                minimumAge?: number | undefined;
+                maximumAge?: number | undefined;
+            })[] | undefined;
+            isStructured?: boolean | undefined;
+            ui?: {
+                style: {
+                    width?: string | undefined;
+                };
+            } | undefined;
+            customerFieldId?: string | undefined;
+        } | {
+            type: "input";
+            id: string;
+            config: {
+                spektrDataField: string;
+                prefillDefaultValue?: boolean | undefined;
+                prefillSpektrDataField?: string | undefined;
+                value?: string | number | boolean | null | undefined;
+                defaultValue?: string | number | boolean | null | undefined;
+            };
+            attributes: {
+                type: "currency";
+                label: string;
+                name?: string | undefined;
+                placeholder?: string | undefined;
+                helperText?: string | undefined;
+                countryField?: string | undefined;
+                internalId?: string | undefined;
+                currency?: {
+                    symbol: string;
+                    code: string;
+                } | undefined;
+            };
+            value?: string | undefined;
+            validation?: ({
+                value: true;
+                message: string;
+                type: "required";
+            } | {
+                message: string;
+                type: "regex";
+                value?: any;
+                preset?: string | undefined;
+            } | {
+                message: string;
+                type: "date";
+                minimumAge?: number | undefined;
+                maximumAge?: number | undefined;
+            })[] | undefined;
+            isStructured?: boolean | undefined;
+            ui?: {
+                style: {
+                    width?: string | undefined;
+                };
+            } | undefined;
+            customerFieldId?: string | undefined;
+        } | {
+            type: "title";
+            id: string;
+            attributes: {
+                content: string;
+            };
+            ui?: {
+                style: {
+                    width?: string | undefined;
+                };
+            } | undefined;
+        } | {
+            type: "paragraph";
+            id: string;
+            attributes: {
+                content: string;
+            };
+            ui?: {
+                style: {
+                    width?: string | undefined;
+                };
+            } | undefined;
+        } | {
+            type: "divider";
+            id: string;
+            ui?: {
+                style: {
+                    width?: string | undefined;
+                };
+            } | undefined;
+        } | {
+            validation: ({
+                value: true;
+                message: string;
+                type: "required";
+            } | {
+                message: string;
+                type: "regex";
+                value?: any;
+                preset?: string | undefined;
+            } | {
+                message: string;
+                type: "date";
+                minimumAge?: number | undefined;
+                maximumAge?: number | undefined;
+            })[];
+            type: "consent";
+            id: string;
+            config: {
+                spektrDataField: string;
+                prefillDefaultValue?: boolean | undefined;
+                prefillSpektrDataField?: string | undefined;
+                value?: string | number | boolean | null | undefined;
+                defaultValue?: string | number | boolean | null | undefined;
+            };
+            attributes: {
+                label: string;
+                name?: string | undefined;
+                internalId?: string | undefined;
+            };
+            isStructured?: boolean | undefined;
+            ui?: {
+                style: {
+                    width?: string | undefined;
+                };
+            } | undefined;
+            customerFieldId?: string | undefined;
+        } | {
+            type: "smart";
+            id: string;
+            config: {
+                spektrDataField: string;
+                prefillDefaultValue?: boolean | undefined;
+                prefillSpektrDataField?: string | undefined;
+                value?: string | number | boolean | null | undefined;
+                defaultValue?: string | number | boolean | null | undefined;
+            };
+            attributes: {
+                label: string;
+                name?: string | undefined;
+                placeholder?: string | undefined;
+                helperText?: string | undefined;
+                internalId?: string | undefined;
+            };
+            value?: string | undefined;
+            validation?: ({
+                value: true;
+                message: string;
+                type: "required";
+            } | {
+                message: string;
+                type: "regex";
+                value?: any;
+                preset?: string | undefined;
+            } | {
+                message: string;
+                type: "date";
+                minimumAge?: number | undefined;
+                maximumAge?: number | undefined;
+            })[] | undefined;
+            isStructured?: boolean | undefined;
+            ui?: {
+                style: {
+                    width?: string | undefined;
+                };
+            } | undefined;
+            customerFieldId?: string | undefined;
+        } | {
+            type: "informationCallout";
+            id: string;
+            attributes: {
+                content: string;
+            };
+            ui?: {
+                style: {
+                    width?: string | undefined;
+                };
+            } | undefined;
+        } | {
+            type: "fieldsGroup";
+            id: string;
+            ui?: {
+                style: {
+                    width?: string | undefined;
+                };
+            } | undefined;
+        }>;
+        order: string[];
+    }>;
+}, "strip", z.ZodTypeAny, {
+    validation: ({
+        value: true;
+        message: string;
+        type: "required";
+    } | {
+        message: string;
+        type: "regex";
+        value?: any;
+        preset?: string | undefined;
+    } | {
+        message: string;
+        type: "date";
+        minimumAge?: number | undefined;
+        maximumAge?: number | undefined;
+    })[];
+    type: "conditional";
+    id: string;
+    config: {
+        spektrDataField: string;
+        prefillDefaultValue: boolean;
+        prefillSpektrDataField?: string | undefined;
+        value?: string | number | boolean | null | undefined;
+        defaultValue?: string | number | boolean | null | undefined;
+    };
+    isStructured: boolean;
+    output: "show" | "hide";
+    form: {
+        fields: Record<string, {
+            validation: ({
+                value: true;
+                message: string;
+                type: "required";
+            } | {
+                message: string;
+                type: "regex";
+                value?: any;
+                preset?: string | undefined;
+            } | {
+                message: string;
+                type: "date";
+                minimumAge?: number | undefined;
+                maximumAge?: number | undefined;
+            })[];
+            type: "input";
+            id: string;
+            config: {
+                spektrDataField: string;
+                prefillDefaultValue: boolean;
+                prefillSpektrDataField?: string | undefined;
+                value?: string | number | boolean | null | undefined;
+                defaultValue?: string | number | boolean | null | undefined;
+            };
+            isStructured: boolean;
+            attributes: {
+                type: string;
+                label: string;
+                name?: string | undefined;
+                placeholder?: string | undefined;
+                helperText?: string | undefined;
+                countryField?: string | undefined;
+                internalId?: string | undefined;
+            };
+            value?: string | undefined;
+            ui?: {
+                style: {
+                    width?: string | undefined;
+                };
+            } | undefined;
+            customerFieldId?: string | undefined;
+        } | {
+            validation: ({
+                value: true;
+                message: string;
+                type: "required";
+            } | {
+                message: string;
+                type: "regex";
+                value?: any;
+                preset?: string | undefined;
+            } | {
+                message: string;
+                type: "date";
+                minimumAge?: number | undefined;
+                maximumAge?: number | undefined;
+            })[];
+            type: "select";
+            id: string;
+            config: {
+                spektrDataField: string;
+                prefillDefaultValue: boolean;
+                prefillSpektrDataField?: string | undefined;
+                value?: string | number | boolean | null | undefined;
+                defaultValue?: string | number | boolean | null | undefined;
+            };
+            isStructured: boolean;
+            attributes: {
+                options: {
+                    value: string;
+                    label: string;
+                }[];
+                label: string;
+                name?: string | undefined;
+                placeholder?: string | undefined;
+                helperText?: string | undefined;
+                internalId?: string | undefined;
+            };
+            ui?: {
+                style: {
+                    width?: string | undefined;
+                };
+            } | undefined;
+            customerFieldId?: string | undefined;
+        } | {
+            validation: ({
+                value: true;
+                message: string;
+                type: "required";
+            } | {
+                message: string;
+                type: "regex";
+                value?: any;
+                preset?: string | undefined;
+            } | {
+                message: string;
+                type: "date";
+                minimumAge?: number | undefined;
+                maximumAge?: number | undefined;
+            })[];
+            type: "radio" | "checkbox" | "optionSwitch";
+            id: string;
+            config: {
+                spektrDataField: string;
+                prefillDefaultValue: boolean;
+                prefillSpektrDataField?: string | undefined;
+                value?: string | number | boolean | null | undefined;
+                defaultValue?: string | number | boolean | null | undefined;
+            };
+            isStructured: boolean;
+            attributes: {
+                options: string[];
+                label: string;
+                name?: string | undefined;
+                placeholder?: string | undefined;
+                helperText?: string | undefined;
+                internalId?: string | undefined;
+            };
+            ui?: {
+                style: {
+                    width?: string | undefined;
+                };
+            } | undefined;
+            customerFieldId?: string | undefined;
+        } | {
+            validation: ({
+                value: true;
+                message: string;
+                type: "required";
+            } | {
+                message: string;
+                type: "regex";
+                value?: any;
+                preset?: string | undefined;
+            } | {
+                message: string;
+                type: "date";
+                minimumAge?: number | undefined;
+                maximumAge?: number | undefined;
+            })[];
+            type: "file";
+            id: string;
+            config: {
+                spektrDataField: string;
+                prefillDefaultValue: boolean;
+                prefillSpektrDataField?: string | undefined;
+                value?: string | number | boolean | null | undefined;
+                defaultValue?: string | number | boolean | null | undefined;
+            };
+            isStructured: boolean;
+            attributes: {
+                label: string;
+                fileType: string;
+                name?: string | undefined;
+                placeholder?: string | undefined;
+                helperText?: string | undefined;
+                internalId?: string | undefined;
+            };
+            ui?: {
+                style: {
+                    width?: string | undefined;
+                };
+            } | undefined;
+            customerFieldId?: string | undefined;
+        } | {
+            validation: ({
+                value: true;
+                message: string;
+                type: "required";
+            } | {
+                message: string;
+                type: "regex";
+                value?: any;
+                preset?: string | undefined;
+            } | {
+                message: string;
+                type: "date";
+                minimumAge?: number | undefined;
+                maximumAge?: number | undefined;
+            })[];
+            type: "input";
+            id: string;
+            config: {
+                spektrDataField: string;
+                prefillDefaultValue: boolean;
+                prefillSpektrDataField?: string | undefined;
+                value?: string | number | boolean | null | undefined;
+                defaultValue?: string | number | boolean | null | undefined;
+            };
+            isStructured: boolean;
+            attributes: {
+                type: "date";
+                label: string;
+                name?: string | undefined;
+                placeholder?: string | undefined;
+                helperText?: string | undefined;
+                countryField?: string | undefined;
+                internalId?: string | undefined;
+                format?: string | undefined;
+                minDate?: string | undefined;
+                maxDate?: string | undefined;
+            };
+            value?: string | undefined;
+            ui?: {
+                style: {
+                    width?: string | undefined;
+                };
+            } | undefined;
+            customerFieldId?: string | undefined;
+        } | {
+            validation: ({
+                value: true;
+                message: string;
+                type: "required";
+            } | {
+                message: string;
+                type: "regex";
+                value?: any;
+                preset?: string | undefined;
+            } | {
+                message: string;
+                type: "date";
+                minimumAge?: number | undefined;
+                maximumAge?: number | undefined;
+            })[];
+            type: "input";
+            id: string;
+            config: {
+                spektrDataField: string;
+                prefillDefaultValue: boolean;
+                prefillSpektrDataField?: string | undefined;
+                value?: string | number | boolean | null | undefined;
+                defaultValue?: string | number | boolean | null | undefined;
+            };
+            isStructured: boolean;
+            attributes: {
+                type: "currency";
+                label: string;
+                name?: string | undefined;
+                placeholder?: string | undefined;
+                helperText?: string | undefined;
+                countryField?: string | undefined;
+                internalId?: string | undefined;
+                currency?: {
+                    symbol: string;
+                    code: string;
+                } | undefined;
+            };
+            value?: string | undefined;
+            ui?: {
+                style: {
+                    width?: string | undefined;
+                };
+            } | undefined;
+            customerFieldId?: string | undefined;
+        } | {
+            type: "title";
+            id: string;
+            attributes: {
+                content: string;
+            };
+            ui?: {
+                style: {
+                    width?: string | undefined;
+                };
+            } | undefined;
+        } | {
+            type: "paragraph";
+            id: string;
+            attributes: {
+                content: string;
+            };
+            ui?: {
+                style: {
+                    width?: string | undefined;
+                };
+            } | undefined;
+        } | {
+            type: "divider";
+            id: string;
+            ui?: {
+                style: {
+                    width?: string | undefined;
+                };
+            } | undefined;
+        } | {
+            validation: ({
+                value: true;
+                message: string;
+                type: "required";
+            } | {
+                message: string;
+                type: "regex";
+                value?: any;
+                preset?: string | undefined;
+            } | {
+                message: string;
+                type: "date";
+                minimumAge?: number | undefined;
+                maximumAge?: number | undefined;
+            })[];
+            type: "consent";
+            id: string;
+            config: {
+                spektrDataField: string;
+                prefillDefaultValue: boolean;
+                prefillSpektrDataField?: string | undefined;
+                value?: string | number | boolean | null | undefined;
+                defaultValue?: string | number | boolean | null | undefined;
+            };
+            isStructured: boolean;
+            attributes: {
+                label: string;
+                name?: string | undefined;
+                internalId?: string | undefined;
+            };
+            ui?: {
+                style: {
+                    width?: string | undefined;
+                };
+            } | undefined;
+            customerFieldId?: string | undefined;
+        } | {
+            validation: ({
+                value: true;
+                message: string;
+                type: "required";
+            } | {
+                message: string;
+                type: "regex";
+                value?: any;
+                preset?: string | undefined;
+            } | {
+                message: string;
+                type: "date";
+                minimumAge?: number | undefined;
+                maximumAge?: number | undefined;
+            })[];
+            type: "smart";
+            id: string;
+            config: {
+                spektrDataField: string;
+                prefillDefaultValue: boolean;
+                prefillSpektrDataField?: string | undefined;
+                value?: string | number | boolean | null | undefined;
+                defaultValue?: string | number | boolean | null | undefined;
+            };
+            isStructured: boolean;
+            attributes: {
+                label: string;
+                name?: string | undefined;
+                placeholder?: string | undefined;
+                helperText?: string | undefined;
+                internalId?: string | undefined;
+            };
+            value?: string | undefined;
+            ui?: {
+                style: {
+                    width?: string | undefined;
+                };
+            } | undefined;
+            customerFieldId?: string | undefined;
+        } | {
+            type: "informationCallout";
+            id: string;
+            attributes: {
+                content: string;
+            };
+            ui?: {
+                style: {
+                    width?: string | undefined;
+                };
+            } | undefined;
+        } | {
+            type: "fieldsGroup";
+            id: string;
+            ui?: {
+                style: {
+                    width?: string | undefined;
+                };
+            } | undefined;
+        }>;
+        order: string[];
+    };
+    ui?: {
+        style: {
+            width?: string | undefined;
+        };
+    } | undefined;
+    customerFieldId?: string | undefined;
+    segment?: any;
+}, {
+    validation: ({
+        value: true;
+        message: string;
+        type: "required";
+    } | {
+        message: string;
+        type: "regex";
+        value?: any;
+        preset?: string | undefined;
+    } | {
+        message: string;
+        type: "date";
+        minimumAge?: number | undefined;
+        maximumAge?: number | undefined;
+    })[];
+    type: "conditional";
+    id: string;
+    config: {
+        spektrDataField: string;
+        prefillDefaultValue?: boolean | undefined;
+        prefillSpektrDataField?: string | undefined;
+        value?: string | number | boolean | null | undefined;
+        defaultValue?: string | number | boolean | null | undefined;
+    };
+    form: {
+        fields: Record<string, {
+            type: "input";
+            id: string;
+            config: {
+                spektrDataField: string;
+                prefillDefaultValue?: boolean | undefined;
+                prefillSpektrDataField?: string | undefined;
+                value?: string | number | boolean | null | undefined;
+                defaultValue?: string | number | boolean | null | undefined;
+            };
+            attributes: {
+                label: string;
+                type?: string | undefined;
+                name?: string | undefined;
+                placeholder?: string | undefined;
+                helperText?: string | undefined;
+                countryField?: string | undefined;
+                internalId?: string | undefined;
+            };
+            value?: string | undefined;
+            validation?: ({
+                value: true;
+                message: string;
+                type: "required";
+            } | {
+                message: string;
+                type: "regex";
+                value?: any;
+                preset?: string | undefined;
+            } | {
+                message: string;
+                type: "date";
+                minimumAge?: number | undefined;
+                maximumAge?: number | undefined;
+            })[] | undefined;
+            isStructured?: boolean | undefined;
+            ui?: {
+                style: {
+                    width?: string | undefined;
+                };
+            } | undefined;
+            customerFieldId?: string | undefined;
+        } | {
+            validation: ({
+                value: true;
+                message: string;
+                type: "required";
+            } | {
+                message: string;
+                type: "regex";
+                value?: any;
+                preset?: string | undefined;
+            } | {
+                message: string;
+                type: "date";
+                minimumAge?: number | undefined;
+                maximumAge?: number | undefined;
+            })[];
+            type: "select";
+            id: string;
+            config: {
+                spektrDataField: string;
+                prefillDefaultValue?: boolean | undefined;
+                prefillSpektrDataField?: string | undefined;
+                value?: string | number | boolean | null | undefined;
+                defaultValue?: string | number | boolean | null | undefined;
+            };
+            attributes: {
+                options: {
+                    value: string;
+                    label: string;
+                }[];
+                label: string;
+                name?: string | undefined;
+                placeholder?: string | undefined;
+                helperText?: string | undefined;
+                internalId?: string | undefined;
+            };
+            isStructured?: boolean | undefined;
+            ui?: {
+                style: {
+                    width?: string | undefined;
+                };
+            } | undefined;
+            customerFieldId?: string | undefined;
+        } | {
+            validation: ({
+                value: true;
+                message: string;
+                type: "required";
+            } | {
+                message: string;
+                type: "regex";
+                value?: any;
+                preset?: string | undefined;
+            } | {
+                message: string;
+                type: "date";
+                minimumAge?: number | undefined;
+                maximumAge?: number | undefined;
+            })[];
+            type: "radio" | "checkbox" | "optionSwitch";
+            id: string;
+            config: {
+                spektrDataField: string;
+                prefillDefaultValue?: boolean | undefined;
+                prefillSpektrDataField?: string | undefined;
+                value?: string | number | boolean | null | undefined;
+                defaultValue?: string | number | boolean | null | undefined;
+            };
+            attributes: {
+                options: string[];
+                label: string;
+                name?: string | undefined;
+                placeholder?: string | undefined;
+                helperText?: string | undefined;
+                internalId?: string | undefined;
+            };
+            isStructured?: boolean | undefined;
+            ui?: {
+                style: {
+                    width?: string | undefined;
+                };
+            } | undefined;
+            customerFieldId?: string | undefined;
+        } | {
+            validation: ({
+                value: true;
+                message: string;
+                type: "required";
+            } | {
+                message: string;
+                type: "regex";
+                value?: any;
+                preset?: string | undefined;
+            } | {
+                message: string;
+                type: "date";
+                minimumAge?: number | undefined;
+                maximumAge?: number | undefined;
+            })[];
+            type: "file";
+            id: string;
+            config: {
+                spektrDataField: string;
+                prefillDefaultValue?: boolean | undefined;
+                prefillSpektrDataField?: string | undefined;
+                value?: string | number | boolean | null | undefined;
+                defaultValue?: string | number | boolean | null | undefined;
+            };
+            attributes: {
+                label: string;
+                fileType: string;
+                name?: string | undefined;
+                placeholder?: string | undefined;
+                helperText?: string | undefined;
+                internalId?: string | undefined;
+            };
+            isStructured?: boolean | undefined;
+            ui?: {
+                style: {
+                    width?: string | undefined;
+                };
+            } | undefined;
+            customerFieldId?: string | undefined;
+        } | {
+            type: "input";
+            id: string;
+            config: {
+                spektrDataField: string;
+                prefillDefaultValue?: boolean | undefined;
+                prefillSpektrDataField?: string | undefined;
+                value?: string | number | boolean | null | undefined;
+                defaultValue?: string | number | boolean | null | undefined;
+            };
+            attributes: {
+                type: "date";
+                label: string;
+                name?: string | undefined;
+                placeholder?: string | undefined;
+                helperText?: string | undefined;
+                countryField?: string | undefined;
+                internalId?: string | undefined;
+                format?: string | undefined;
+                minDate?: string | undefined;
+                maxDate?: string | undefined;
+            };
+            value?: string | undefined;
+            validation?: ({
+                value: true;
+                message: string;
+                type: "required";
+            } | {
+                message: string;
+                type: "regex";
+                value?: any;
+                preset?: string | undefined;
+            } | {
+                message: string;
+                type: "date";
+                minimumAge?: number | undefined;
+                maximumAge?: number | undefined;
+            })[] | undefined;
+            isStructured?: boolean | undefined;
+            ui?: {
+                style: {
+                    width?: string | undefined;
+                };
+            } | undefined;
+            customerFieldId?: string | undefined;
+        } | {
+            type: "input";
+            id: string;
+            config: {
+                spektrDataField: string;
+                prefillDefaultValue?: boolean | undefined;
+                prefillSpektrDataField?: string | undefined;
+                value?: string | number | boolean | null | undefined;
+                defaultValue?: string | number | boolean | null | undefined;
+            };
+            attributes: {
+                type: "currency";
+                label: string;
+                name?: string | undefined;
+                placeholder?: string | undefined;
+                helperText?: string | undefined;
+                countryField?: string | undefined;
+                internalId?: string | undefined;
+                currency?: {
+                    symbol: string;
+                    code: string;
+                } | undefined;
+            };
+            value?: string | undefined;
+            validation?: ({
+                value: true;
+                message: string;
+                type: "required";
+            } | {
+                message: string;
+                type: "regex";
+                value?: any;
+                preset?: string | undefined;
+            } | {
+                message: string;
+                type: "date";
+                minimumAge?: number | undefined;
+                maximumAge?: number | undefined;
+            })[] | undefined;
+            isStructured?: boolean | undefined;
+            ui?: {
+                style: {
+                    width?: string | undefined;
+                };
+            } | undefined;
+            customerFieldId?: string | undefined;
+        } | {
+            type: "title";
+            id: string;
+            attributes: {
+                content: string;
+            };
+            ui?: {
+                style: {
+                    width?: string | undefined;
+                };
+            } | undefined;
+        } | {
+            type: "paragraph";
+            id: string;
+            attributes: {
+                content: string;
+            };
+            ui?: {
+                style: {
+                    width?: string | undefined;
+                };
+            } | undefined;
+        } | {
+            type: "divider";
+            id: string;
+            ui?: {
+                style: {
+                    width?: string | undefined;
+                };
+            } | undefined;
+        } | {
+            validation: ({
+                value: true;
+                message: string;
+                type: "required";
+            } | {
+                message: string;
+                type: "regex";
+                value?: any;
+                preset?: string | undefined;
+            } | {
+                message: string;
+                type: "date";
+                minimumAge?: number | undefined;
+                maximumAge?: number | undefined;
+            })[];
+            type: "consent";
+            id: string;
+            config: {
+                spektrDataField: string;
+                prefillDefaultValue?: boolean | undefined;
+                prefillSpektrDataField?: string | undefined;
+                value?: string | number | boolean | null | undefined;
+                defaultValue?: string | number | boolean | null | undefined;
+            };
+            attributes: {
+                label: string;
+                name?: string | undefined;
+                internalId?: string | undefined;
+            };
+            isStructured?: boolean | undefined;
+            ui?: {
+                style: {
+                    width?: string | undefined;
+                };
+            } | undefined;
+            customerFieldId?: string | undefined;
+        } | {
+            type: "smart";
+            id: string;
+            config: {
+                spektrDataField: string;
+                prefillDefaultValue?: boolean | undefined;
+                prefillSpektrDataField?: string | undefined;
+                value?: string | number | boolean | null | undefined;
+                defaultValue?: string | number | boolean | null | undefined;
+            };
+            attributes: {
+                label: string;
+                name?: string | undefined;
+                placeholder?: string | undefined;
+                helperText?: string | undefined;
+                internalId?: string | undefined;
+            };
+            value?: string | undefined;
+            validation?: ({
+                value: true;
+                message: string;
+                type: "required";
+            } | {
+                message: string;
+                type: "regex";
+                value?: any;
+                preset?: string | undefined;
+            } | {
+                message: string;
+                type: "date";
+                minimumAge?: number | undefined;
+                maximumAge?: number | undefined;
+            })[] | undefined;
+            isStructured?: boolean | undefined;
+            ui?: {
+                style: {
+                    width?: string | undefined;
+                };
+            } | undefined;
+            customerFieldId?: string | undefined;
+        } | {
+            type: "informationCallout";
+            id: string;
+            attributes: {
+                content: string;
+            };
+            ui?: {
+                style: {
+                    width?: string | undefined;
+                };
+            } | undefined;
+        } | {
+            type: "fieldsGroup";
+            id: string;
+            ui?: {
+                style: {
+                    width?: string | undefined;
+                };
+            } | undefined;
+        }>;
+        order: string[];
+    };
+    isStructured?: boolean | undefined;
+    ui?: {
+        style: {
+            width?: string | undefined;
+        };
+    } | undefined;
+    customerFieldId?: string | undefined;
+    segment?: any;
+    output?: "show" | "hide" | undefined;
+}>;
+type LogicalField = z.infer<typeof LogicalField>;
 declare const Field: z.ZodUnion<[z.ZodUnion<[z.ZodObject<{
     id: z.ZodString;
     ui: z.ZodOptional<z.ZodObject<{
@@ -32620,6 +36317,17 @@ type Form = z.infer<typeof Form>;
 
 declare function formEvaluation(field: Form, context: SpektrData): Field[];
 
+/**
+ * @description
+ *   Evaluates a logical field based on its segment groups and context data.
+ *  Based on the desired output (show/hide), it determines if the field should be displayed.
+ *
+ * @param field Field to be evaluated
+ * @param context Context data used for evaluation
+ * @returns If the field should be shown or not
+ */
+declare function evaluateLogicalField(field: LogicalField, context: SpektrData): boolean;
+
 declare const SpektrFieldType: z.ZodEnum<["string", "number", "date", "country", "boolean", "file", "matrix"]>;
 type SpektrFieldType = z.infer<typeof SpektrFieldType>;
 
@@ -34513,6 +38221,7 @@ declare const SpektrSdk: {
     executePredicate: typeof executePredicate;
     formEvaluation: typeof formEvaluation;
     translateFields: typeof translateFields;
+    evaluateConditionalField: typeof evaluateLogicalField;
 };
 
 export { Field, Form, SpektrSdk, SpektrSdk as default };

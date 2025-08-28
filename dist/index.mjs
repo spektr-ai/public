@@ -1,571 +1,508 @@
 // src/validators/fields/EntitiesField.ts
-import { z as z18 } from "zod";
+import { z as m } from "zod";
 
 // src/validators/fields/BaseField.ts
-import { z as z2 } from "zod";
+import { z as Q } from "zod";
 
 // src/validators/fields/FieldConfig.ts
-import { z } from "zod";
-var FieldConfig = z.object({
-  spektrDataField: z.string(),
-  prefillDefaultValue: z.boolean().optional().default(true),
-  prefillSpektrDataField: z.string().optional(),
-  value: z.union([z.string(), z.number(), z.boolean(), z.null()]).optional(),
-  defaultValue: z.union([z.string(), z.number(), z.boolean(), z.null()]).optional()
-});
-var FieldUiConfig = z.object({
-  style: z.object({
-    width: z.string().optional()
+import { z as d } from "zod";
+var ce = d.object({
+  spektrDataField: d.string(),
+  prefillDefaultValue: d.boolean().optional().default(!0),
+  prefillSpektrDataField: d.string().optional(),
+  value: d.union([d.string(), d.number(), d.boolean(), d.null()]).optional(),
+  defaultValue: d.union([d.string(), d.number(), d.boolean(), d.null()]).optional()
+}), D = d.object({
+  style: d.object({
+    width: d.string().optional()
   })
 });
 
 // src/validators/fields/BaseField.ts
-var BaseField = z2.object({
-  id: z2.string(),
-  config: FieldConfig,
-  isStructured: z2.boolean().default(false),
-  ui: FieldUiConfig.optional(),
-  customerFieldId: z2.string().optional()
+var c = Q.object({
+  id: Q.string(),
+  config: ce,
+  isStructured: Q.boolean().default(!1),
+  ui: D.optional(),
+  customerFieldId: Q.string().optional()
 });
 
 // src/validators/fields/FieldValidation.ts
-import { z as z3 } from "zod";
-var validationTypes = ["required", "regex"];
-var validationTypesEnum = z3.enum(validationTypes);
-var RequiredFieldValidation = z3.object({
-  type: z3.literal("required"),
-  value: z3.literal(true),
-  message: z3.string()
-});
-var RegexFieldValidation = z3.object({
-  type: z3.literal("regex"),
-  value: z3.any(),
-  preset: z3.string().optional(),
-  message: z3.string()
-});
-var DateFieldValidation = z3.object({
-  type: z3.literal("date"),
-  minimumAge: z3.number().optional(),
-  maximumAge: z3.number().optional(),
-  message: z3.string()
-});
-var FieldValidation = z3.union([
-  RequiredFieldValidation,
-  RegexFieldValidation,
-  DateFieldValidation
+import { z as g } from "zod";
+var Ue = ["required", "regex"], Tt = g.enum(Ue), Me = g.object({
+  type: g.literal("required"),
+  value: g.literal(!0),
+  message: g.string()
+}), $e = g.object({
+  type: g.literal("regex"),
+  value: g.any(),
+  preset: g.string().optional(),
+  message: g.string()
+}), Ye = g.object({
+  type: g.literal("date"),
+  minimumAge: g.number().optional(),
+  maximumAge: g.number().optional(),
+  message: g.string()
+}), y = g.union([
+  Me,
+  $e,
+  Ye
 ]);
 
 // src/validators/fields/InputField.ts
-import { z as z4 } from "zod";
-var InputFieldAttributes = z4.object({
-  label: z4.string(),
-  name: z4.string().optional(),
-  type: z4.string().optional().default("text"),
-  placeholder: z4.string().optional(),
-  helperText: z4.string().optional(),
-  countryField: z4.string().optional(),
-  internalId: z4.string().optional()
-});
-var InputField = BaseField.merge(
-  z4.object({
-    type: z4.literal("input"),
-    value: z4.string().optional(),
-    attributes: InputFieldAttributes,
-    validation: z4.array(FieldValidation).default([])
+import { z as w } from "zod";
+var W = w.object({
+  label: w.string(),
+  name: w.string().optional(),
+  type: w.string().optional().default("text"),
+  placeholder: w.string().optional(),
+  helperText: w.string().optional(),
+  countryField: w.string().optional(),
+  internalId: w.string().optional()
+}), P = c.merge(
+  w.object({
+    type: w.literal("input"),
+    value: w.string().optional(),
+    attributes: W,
+    validation: w.array(y).default([])
   })
 );
 
 // src/validators/fields/DropdownField.ts
-import { z as z5 } from "zod";
-var DropdownFieldAttributes = z5.object({
-  label: z5.string(),
-  name: z5.string().optional(),
-  placeholder: z5.string().optional(),
-  options: z5.array(z5.object({ value: z5.string(), label: z5.string() })),
-  helperText: z5.string().optional(),
-  internalId: z5.string().optional()
-});
-var DropdownField = BaseField.merge(
-  z5.object({
-    type: z5.literal("select"),
-    attributes: DropdownFieldAttributes,
-    validation: z5.array(FieldValidation)
+import { z as b } from "zod";
+var Be = b.object({
+  label: b.string(),
+  name: b.string().optional(),
+  placeholder: b.string().optional(),
+  options: b.array(b.object({ value: b.string(), label: b.string() })),
+  helperText: b.string().optional(),
+  internalId: b.string().optional()
+}), R = c.merge(
+  b.object({
+    type: b.literal("select"),
+    attributes: Be,
+    validation: b.array(y)
   })
 );
-function isDropdownField(field) {
-  return DropdownField.safeParse(field).success;
+function ge(e) {
+  return R.safeParse(e).success;
 }
 
 // src/validators/fields/CheckboxField.ts
-import { z as z6 } from "zod";
-var CheckboxFieldAttributes = z6.object({
-  label: z6.string(),
-  name: z6.string().optional(),
-  options: z6.array(z6.string()),
-  placeholder: z6.string().optional(),
-  helperText: z6.string().optional(),
-  internalId: z6.string().optional()
-});
-var CheckboxField = BaseField.merge(
-  z6.object({
-    type: z6.literal("radio").or(z6.literal("checkbox")).or(z6.literal("optionSwitch")),
-    attributes: CheckboxFieldAttributes,
-    validation: z6.array(FieldValidation)
+import { z as h } from "zod";
+var Ve = h.object({
+  label: h.string(),
+  name: h.string().optional(),
+  options: h.array(h.string()),
+  placeholder: h.string().optional(),
+  helperText: h.string().optional(),
+  internalId: h.string().optional()
+}), I = c.merge(
+  h.object({
+    type: h.literal("radio").or(h.literal("checkbox")).or(h.literal("optionSwitch")),
+    attributes: Ve,
+    validation: h.array(y)
   })
 );
 
 // src/validators/fields/FileField.ts
-import { z as z7 } from "zod";
-var FileFieldAttributes = z7.object({
-  label: z7.string(),
-  name: z7.string().optional(),
-  fileType: z7.string(),
-  placeholder: z7.string().optional(),
-  helperText: z7.string().optional(),
-  internalId: z7.string().optional()
-});
-var FileField = BaseField.merge(
-  z7.object({
-    type: z7.literal("file"),
-    attributes: FileFieldAttributes,
-    validation: z7.array(FieldValidation)
+import { z as T } from "zod";
+var Ge = T.object({
+  label: T.string(),
+  name: T.string().optional(),
+  fileType: T.string(),
+  placeholder: T.string().optional(),
+  helperText: T.string().optional(),
+  internalId: T.string().optional()
+}), z = c.merge(
+  T.object({
+    type: T.literal("file"),
+    attributes: Ge,
+    validation: T.array(y)
   })
 );
 
 // src/validators/fields/DateField.ts
-import { z as z8 } from "zod";
-var DateFieldAttributes = InputFieldAttributes.merge(
-  z8.object({
-    type: z8.literal("date"),
-    format: z8.string().optional(),
-    minDate: z8.string().optional(),
-    maxDate: z8.string().optional()
+import { z as k } from "zod";
+var qe = W.merge(
+  k.object({
+    type: k.literal("date"),
+    format: k.string().optional(),
+    minDate: k.string().optional(),
+    maxDate: k.string().optional()
   })
-);
-var DateField = InputField.merge(
-  z8.object({
-    attributes: DateFieldAttributes
+), N = P.merge(
+  k.object({
+    attributes: qe
   })
 );
 
 // src/validators/fields/CurrencyField.ts
-import { z as z9 } from "zod";
-var CurrencyFieldAttributes = InputFieldAttributes.merge(
-  z9.object({
-    type: z9.literal("currency"),
-    currency: z9.object({
-      symbol: z9.string(),
-      code: z9.string()
+import { z as L } from "zod";
+var He = W.merge(
+  L.object({
+    type: L.literal("currency"),
+    currency: L.object({
+      symbol: L.string(),
+      code: L.string()
     }).optional()
   })
-);
-var CurrencyField = InputField.merge(
-  z9.object({
-    attributes: CurrencyFieldAttributes
+), j = P.merge(
+  L.object({
+    attributes: He
   })
 );
 
 // src/validators/fields/TitleField.ts
-import { z as z10 } from "zod";
-var TitleField = z10.object({
-  id: z10.string(),
-  ui: FieldUiConfig.optional(),
-  type: z10.literal("title"),
-  attributes: z10.object({
-    content: z10.string()
+import { z as Z } from "zod";
+var O = Z.object({
+  id: Z.string(),
+  ui: D.optional(),
+  type: Z.literal("title"),
+  attributes: Z.object({
+    content: Z.string()
   })
 });
 
 // src/validators/fields/ParagraphField.ts
-import { z as z11 } from "zod";
-var ParagraphField = z11.object({
-  id: z11.string(),
-  ui: FieldUiConfig.optional(),
-  type: z11.literal("paragraph"),
-  attributes: z11.object({
-    content: z11.string()
+import { z as J } from "zod";
+var U = J.object({
+  id: J.string(),
+  ui: D.optional(),
+  type: J.literal("paragraph"),
+  attributes: J.object({
+    content: J.string()
   })
 });
 
 // src/validators/fields/DividerField.ts
-import { z as z12 } from "zod";
-var DividerField = z12.object({
-  id: z12.string(),
-  ui: FieldUiConfig.optional(),
-  type: z12.literal("divider")
+import { z as ae } from "zod";
+var M = ae.object({
+  id: ae.string(),
+  ui: D.optional(),
+  type: ae.literal("divider")
 });
 
 // src/validators/fields/ConsentField.ts
-import { z as z13 } from "zod";
-var ConsentFieldAttributes = z13.object({
-  label: z13.string(),
-  name: z13.string().optional(),
-  internalId: z13.string().optional()
-});
-var ConsentField = BaseField.merge(
-  z13.object({
-    type: z13.literal("consent"),
-    attributes: ConsentFieldAttributes,
-    validation: z13.array(FieldValidation)
+import { z as A } from "zod";
+var We = A.object({
+  label: A.string(),
+  name: A.string().optional(),
+  internalId: A.string().optional()
+}), $ = c.merge(
+  A.object({
+    type: A.literal("consent"),
+    attributes: We,
+    validation: A.array(y)
   })
 );
 
 // src/validators/fields/SmartField.ts
-import { z as z14 } from "zod";
-var SmartFieldAttributes = z14.object({
-  label: z14.string(),
-  name: z14.string().optional(),
-  placeholder: z14.string().optional(),
-  helperText: z14.string().optional(),
-  internalId: z14.string().optional()
-});
-var SmartField = BaseField.merge(
-  z14.object({
-    type: z14.literal("smart"),
-    value: z14.string().optional(),
-    attributes: SmartFieldAttributes,
-    validation: z14.array(FieldValidation).default([])
+import { z as C } from "zod";
+var Ze = C.object({
+  label: C.string(),
+  name: C.string().optional(),
+  placeholder: C.string().optional(),
+  helperText: C.string().optional(),
+  internalId: C.string().optional()
+}), Y = c.merge(
+  C.object({
+    type: C.literal("smart"),
+    value: C.string().optional(),
+    attributes: Ze,
+    validation: C.array(y).default([])
   })
 );
 
 // src/validators/fields/InformationCalloutField.ts
-import { z as z15 } from "zod";
-var InformationCalloutField = z15.object({
-  id: z15.string(),
-  ui: FieldUiConfig.optional(),
-  type: z15.literal("informationCallout"),
-  attributes: z15.object({
-    content: z15.string()
+import { z as X } from "zod";
+var B = X.object({
+  id: X.string(),
+  ui: D.optional(),
+  type: X.literal("informationCallout"),
+  attributes: X.object({
+    content: X.string()
   })
 });
 
 // src/validators/fields/FieldsGroup.ts
-import { z as z16 } from "zod";
-var FieldsGroup = z16.object({
-  id: z16.string(),
-  ui: FieldUiConfig.optional(),
-  type: z16.literal("fieldsGroup")
+import { z as se } from "zod";
+var V = se.object({
+  id: se.string(),
+  ui: D.optional(),
+  type: se.literal("fieldsGroup")
 });
 
 // src/validators/fields/ConditionalField.ts
-import { z as z17 } from "zod";
-var outputTypes = ["show", "hide"];
-var ConditionOutput = z17.enum(outputTypes);
-var ConditionalField = BaseField.merge(
-  z17.object({
-    type: z17.literal("conditional"),
-    validation: z17.array(FieldValidation),
-    segment: z17.any(),
+import { z as S } from "zod";
+var Je = ["show", "hide"], le = S.enum(Je), ee = c.merge(
+  S.object({
+    type: S.literal("conditional"),
+    validation: S.array(y),
+    segment: S.any(),
     // Because "Cannot access 'SegmentSchema' before initialization"
-    output: ConditionOutput.optional().default("hide"),
-    form: z17.object({
-      fields: z17.record(
-        z17.string(),
-        z17.union([
-          DateField,
-          CurrencyField,
-          InputField,
-          DropdownField,
-          CheckboxField,
-          FileField,
-          DropdownField,
-          TitleField,
-          ParagraphField,
-          InformationCalloutField,
-          FieldsGroup,
-          DividerField,
-          ConsentField,
-          SmartField
+    output: le.optional().default("hide"),
+    form: S.object({
+      fields: S.record(
+        S.string(),
+        S.union([
+          N,
+          j,
+          P,
+          R,
+          I,
+          z,
+          R,
+          O,
+          U,
+          B,
+          V,
+          M,
+          $,
+          Y
         ])
       ),
-      order: z17.array(z17.string())
+      order: S.array(S.string())
     })
   })
 );
 
 // src/validators/fields/EntitiesField.ts
-var EntitiesField = BaseField.merge(
-  z18.object({
-    type: z18.literal("entity"),
-    attributes: z18.object({
-      label: z18.string(),
-      name: z18.string().optional(),
-      helperText: z18.string().optional(),
-      buttonText: z18.string(),
-      labelField: z18.string().optional(),
-      internalId: z18.string().optional(),
-      category: z18.string().optional()
+var pe = c.merge(
+  m.object({
+    type: m.literal("entity"),
+    attributes: m.object({
+      label: m.string(),
+      name: m.string().optional(),
+      helperText: m.string().optional(),
+      buttonText: m.string(),
+      labelField: m.string().optional(),
+      internalId: m.string().optional(),
+      category: m.string().optional()
     }),
-    validation: z18.array(FieldValidation).default([]),
-    form: z18.object({
-      fields: z18.record(
-        z18.string(),
-        z18.union([
-          DateField,
-          CurrencyField,
-          InputField,
-          DropdownField,
-          CheckboxField,
-          FileField,
-          DropdownField,
-          TitleField,
-          ParagraphField,
-          InformationCalloutField,
-          FieldsGroup,
-          DividerField,
-          ConsentField,
-          SmartField,
-          ConditionalField
+    validation: m.array(y).default([]),
+    form: m.object({
+      fields: m.record(
+        m.string(),
+        m.union([
+          N,
+          j,
+          P,
+          R,
+          I,
+          z,
+          R,
+          O,
+          U,
+          B,
+          V,
+          M,
+          $,
+          Y,
+          ee
         ])
       ),
-      order: z18.array(z18.string())
+      order: m.array(m.string())
     }),
-    relationType: z18.string().optional()
+    relationType: m.string().optional()
   })
 );
-function isEntitiesField(field) {
-  return EntitiesField.safeParse(field).success;
+function te(e) {
+  return pe.safeParse(e).success;
 }
 
 // src/validators/fields/Field.ts
-import { z as z19 } from "zod";
-var LogicalField = ConditionalField;
-function isLogicalField(field) {
-  return LogicalField.safeParse(field).success;
+import { z as fe } from "zod";
+var ye = ee;
+function G(e) {
+  return ye.safeParse(e).success;
 }
-var ReadOnlyField = z19.union([
-  TitleField,
-  ParagraphField,
-  InformationCalloutField,
-  FieldsGroup,
-  DividerField
+var Xe = fe.union([
+  O,
+  U,
+  B,
+  V,
+  M
 ]);
-var WritableField = z19.union([
-  DateField,
-  CurrencyField,
-  InputField,
-  DropdownField,
-  CheckboxField,
-  FileField,
-  EntitiesField,
-  ConsentField,
-  SmartField
+var Ke = fe.union([
+  N,
+  j,
+  P,
+  R,
+  I,
+  z,
+  pe,
+  $,
+  Y
 ]);
-var Field = z19.union([ReadOnlyField, WritableField, LogicalField]);
+var yo = fe.union([Xe, Ke, ye]);
 
 // src/lib/formEvaluation/utils/hasLogicalFields.ts
-function hasLogicalFields(fields) {
-  return Object.values(fields).some((field) => {
-    if (isLogicalField(field)) {
-      return true;
-    }
-    if (isEntitiesField(field)) {
-      return hasLogicalFields(field.form.fields);
-    }
-    return false;
-  });
+function ue(e) {
+  return Object.values(e).some((i) => G(i) ? !0 : te(i) ? ue(i.form.fields) : !1);
 }
 
 // src/utils/orderFields.ts
-function orderFields(fields, order) {
-  const orderedFields = [];
-  if (!Array.isArray(order) || order.length === 0 || !fields || Object.keys(fields).length === 0) {
-    return Object.values(fields);
-  }
-  order.forEach((fieldId) => {
-    if (fields[fieldId]) {
-      orderedFields.push(fields[fieldId]);
-    }
-  });
-  return orderedFields;
+function re(e, i) {
+  let a = [];
+  return !Array.isArray(i) || i.length === 0 || !e || Object.keys(e).length === 0 ? Object.values(e) : (i.forEach((t) => {
+    e[t] && a.push(e[t]);
+  }), a);
 }
 
 // src/constants/regex/range.ts
-var rangeRegex = /^\[\s{0,10}(-?\d+|\w+)?\s{0,10},\s{0,10}(-?\d+|\w+)?\s{0,10}\]$/;
+var oe = /^\[\s{0,10}(-?\d+|\w+)?\s{0,10},\s{0,10}(-?\d+|\w+)?\s{0,10}\]$/;
 
 // src/utils/parsers/range.ts
-var parseRange = (range) => {
-  var _a, _b;
-  const match = range == null ? void 0 : range.match(rangeRegex);
-  if (!match) return ["", ""];
-  const min = ((_a = match[1]) == null ? void 0 : _a.trim()) || "";
-  const max = ((_b = match[2]) == null ? void 0 : _b.trim()) || "";
-  return [min, max];
+var Fe = (e) => {
+  var r, o;
+  let i = e == null ? void 0 : e.match(oe);
+  if (!i) return ["", ""];
+  let a = ((r = i[1]) == null ? void 0 : r.trim()) || "", t = ((o = i[2]) == null ? void 0 : o.trim()) || "";
+  return [a, t];
 };
 
 // src/utils/parsers/country.ts
-import * as iso from "iso-3166-1";
-var parseCountry = (countryIdentifier) => {
-  if (!countryIdentifier || countryIdentifier.length < 2) return void 0;
-  const identifierType = countryIdentifier.length === 2 ? "iso2" : countryIdentifier.length === 3 ? "iso3" : "name";
-  let countryInfo = void 0;
-  switch (identifierType) {
+import * as q from "iso-3166-1";
+var K = (e) => {
+  if (!e || e.length < 2) return;
+  let i = e.length === 2 ? "iso2" : e.length === 3 ? "iso3" : "name", a;
+  switch (i) {
     case "name":
-      countryInfo = iso.whereCountry(countryIdentifier);
+      a = q.whereCountry(e);
       break;
     case "iso2":
-      countryInfo = iso.whereAlpha2(countryIdentifier);
+      a = q.whereAlpha2(e);
       break;
     case "iso3":
-      countryInfo = iso.whereAlpha3(countryIdentifier);
+      a = q.whereAlpha3(e);
       break;
   }
-  if (!countryInfo) return void 0;
-  return {
-    isoAlpha2: countryInfo.alpha2,
-    isoAlpha3: countryInfo.alpha3,
-    name: countryInfo.country
-  };
+  if (a)
+    return {
+      isoAlpha2: a.alpha2,
+      isoAlpha3: a.alpha3,
+      name: a.country
+    };
 };
 
 // src/utils/parsers/dates/epoch.ts
-var parseEpochDate = (date) => {
-  const regex = /^-?\d+$/;
-  if (regex.test(date)) {
-    const ms = Number(date) * 1e3;
-    return new Date(ms);
+var be = (e) => {
+  if (/^-?\d+$/.test(e)) {
+    let a = Number(e) * 1e3;
+    return new Date(a);
   }
-  return void 0;
 };
 
 // src/utils/parsers/dates/ddmmyyyy.ts
-var parseDdMmYyyyDate = (date) => {
-  const regex = /^(0[1-9]|[12][0-9]|3[01])[-/](0[1-9]|1[012])[-/](\d{4})$/;
-  const match = date.match(regex);
-  if (match) {
-    const [_, dayString, monthString, yearString] = match;
-    if (!dayString || !monthString || !yearString) return void 0;
-    const day = parseInt(dayString);
-    const month = parseInt(monthString) - 1;
-    const year = parseInt(yearString);
-    const utcDate = new Date(Date.UTC(year, month, day));
-    if (utcDate.getFullYear() === year && utcDate.getMonth() === month && utcDate.getDate() === day) {
-      return utcDate;
-    }
+var he = (e) => {
+  let i = /^(0[1-9]|[12][0-9]|3[01])[-/](0[1-9]|1[012])[-/](\d{4})$/, a = e.match(i);
+  if (a) {
+    let [t, r, o, s] = a;
+    if (!r || !o || !s) return;
+    let l = parseInt(r), p = parseInt(o) - 1, x = parseInt(s), F = new Date(Date.UTC(x, p, l));
+    if (F.getFullYear() === x && F.getMonth() === p && F.getDate() === l)
+      return F;
   }
-  return void 0;
 };
 
 // src/utils/parsers/dates/yyyymmdd.ts
-var parseYyyyMmDdDate = (date) => {
-  const regex = /^(\d{4})[-/](0[1-9]|1[012])[-/](0[1-9]|[12][0-9]|3[01])$/;
-  const match = date.match(regex);
-  if (match) {
-    const [_, yearString, monthString, dayString] = match;
-    if (!dayString || !monthString || !yearString) return void 0;
-    const year = parseInt(yearString);
-    const month = parseInt(monthString) - 1;
-    const day = parseInt(dayString);
-    const date2 = new Date(year, month, day);
-    if (date2.getFullYear() === year && date2.getMonth() === month && date2.getDate() === day) {
-      return date2;
-    }
+var xe = (e) => {
+  let i = /^(\d{4})[-/](0[1-9]|1[012])[-/](0[1-9]|[12][0-9]|3[01])$/, a = e.match(i);
+  if (a) {
+    let [t, r, o, s] = a;
+    if (!s || !o || !r) return;
+    let l = parseInt(r), p = parseInt(o) - 1, x = parseInt(s), F = new Date(l, p, x);
+    if (F.getFullYear() === l && F.getMonth() === p && F.getDate() === x)
+      return F;
   }
-  return void 0;
 };
 
 // src/utils/parsers/dates/iso8601.ts
-import { parseISO } from "date-fns";
-var parseIso8601Date = (date) => {
-  const hasTimezone = /[+-]\d\d:\d\d$|Z$/.test(date);
-  const dateInUtc = hasTimezone ? date : `${date}Z`;
-  const parsed = parseISO(dateInUtc);
-  if (isNaN(parsed.getTime())) return void 0;
-  return parsed;
+import { parseISO as Qe } from "date-fns";
+var De = (e) => {
+  let a = /[+-]\d\d:\d\d$|Z$/.test(e) ? e : `${e}Z`, t = Qe(a);
+  if (!isNaN(t.getTime()))
+    return t;
 };
 
 // src/utils/parsers/dates/timestampString.ts
-var parseTimestampString = (date) => {
-  if (/^\d{10}$/.test(date)) {
-    return new Date(parseInt(date, 10) * 1e3);
-  } else if (/^\d{13}$/.test(date)) {
-    return new Date(parseInt(date, 10));
-  }
-  return void 0;
+var we = (e) => {
+  if (/^\d{10}$/.test(e))
+    return new Date(parseInt(e, 10) * 1e3);
+  if (/^\d{13}$/.test(e))
+    return new Date(parseInt(e, 10));
 };
 
 // src/utils/parsers/dates/parser.ts
-var parseDate = (date) => {
-  const parsers = [
-    parseTimestampString,
-    parseDdMmYyyyDate,
-    parseYyyyMmDdDate,
-    parseIso8601Date,
-    parseEpochDate
+var Se = (e) => {
+  let i = [
+    we,
+    he,
+    xe,
+    De,
+    be
   ];
-  for (const parser of parsers) {
-    const parsed = parser(date);
-    if (parsed) return parsed;
+  for (let a of i) {
+    let t = a(e);
+    if (t) return t;
   }
-  return void 0;
 };
-function parseDateToTimestamp(value) {
-  if (typeof value === "boolean") {
-    throw new Error(`Value ${value} can not be parsed to a date`);
+function ie(e) {
+  if (typeof e == "boolean")
+    throw new Error(`Value ${e} can not be parsed to a date`);
+  if (typeof e == "number") {
+    let a = new Date(e);
+    if (isNaN(a.getTime()))
+      throw new Error(`Value ${e} can not be parsed to a date`);
+    return et(e);
   }
-  if (typeof value === "number") {
-    const date = new Date(value);
-    if (isNaN(date.getTime())) {
-      throw new Error(`Value ${value} can not be parsed to a date`);
-    }
-    return ensureMilliseconds(value);
-  }
-  const parsedDate = parseDate(value);
-  if (parsedDate === void 0) {
-    throw new Error(`Value ${value} can not be parsed to a date`);
-  }
-  return parsedDate.getTime();
+  let i = Se(e);
+  if (i === void 0)
+    throw new Error(`Value ${e} can not be parsed to a date`);
+  return i.getTime();
 }
-function ensureMilliseconds(timestamp) {
-  if (timestamp < 1e10) {
-    return timestamp * 1e3;
-  }
-  return timestamp;
+function et(e) {
+  return e < 1e10 ? e * 1e3 : e;
 }
 
 // src/utils/errors/RuleExecutionError.ts
-var RuleExecutionError = class extends Error {
-  constructor(message) {
-    super(message);
-    this.name = "RuleExecutionError";
+var f = class extends Error {
+  constructor(i) {
+    super(i), this.name = "RuleExecutionError";
   }
 };
 
 // src/lib/predicate/utils/assertIsMatrix.ts
-function assertIsMatrix(matrix) {
-  if (!Array.isArray(matrix))
-    throw new RuleExecutionError(
-      `Rule Execution failed. Expected matrix to be of type 'array' but received '${matrix}' of type '${typeof matrix}'`
+function Pe(e) {
+  if (!Array.isArray(e))
+    throw new f(
+      `Rule Execution failed. Expected matrix to be of type 'array' but received '${e}' of type '${typeof e}'`
     );
-  for (const row of matrix) {
-    if (!Array.isArray(row))
-      throw new RuleExecutionError(
-        `Rule Execution failed. Expected row in matrix to be of type 'array' but received '${row}' of type '${typeof row}'`
+  for (let i of e) {
+    if (!Array.isArray(i))
+      throw new f(
+        `Rule Execution failed. Expected row in matrix to be of type 'array' but received '${i}' of type '${typeof i}'`
       );
-    for (const cell of row) {
-      if (typeof cell !== "string")
-        throw new RuleExecutionError(
-          `Rule Execution failed. Expected cell in matrix row to be of type 'string' but received '${cell}' of type '${typeof cell}'`
+    for (let a of i)
+      if (typeof a != "string")
+        throw new f(
+          `Rule Execution failed. Expected cell in matrix row to be of type 'string' but received '${a}' of type '${typeof a}'`
         );
-    }
   }
 }
 
 // src/utils/epochOrTodayToEpoch.ts
-function epochOrTodayToEpoch(epochOrToday) {
-  if (epochOrToday === "@today") {
-    return (/* @__PURE__ */ new Date()).setUTCHours(0, 0, 0, 0);
-  } else {
-    return new Date(Number(epochOrToday)).setUTCHours(0, 0, 0, 0);
-  }
+function H(e) {
+  return e === "@today" ? (/* @__PURE__ */ new Date()).setUTCHours(0, 0, 0, 0) : new Date(Number(e)).setUTCHours(0, 0, 0, 0);
 }
 
 // src/validators/rules/predicate.ts
-import { z as z21 } from "zod";
+import { z as n } from "zod";
 
 // src/validators/fieldType.ts
-import { z as z20 } from "zod";
-var SpektrFieldType = z20.enum([
+import { z as tt } from "zod";
+var v = tt.enum([
   "string",
   "number",
   "date",
@@ -576,348 +513,284 @@ var SpektrFieldType = z20.enum([
 ]);
 
 // src/validators/rules/predicate.ts
-var booleanPredicateSchema = z21.object({
-  operator: z21.enum(["and", "or"]),
-  groupRoot: z21.boolean().optional(),
-  type: SpektrFieldType,
-  left: z21.lazy(() => predicateSchema),
-  right: z21.lazy(() => predicateSchema),
-  rightMode: z21.enum(["literal", "variable"]).default("literal").optional()
+var rt = n.object({
+  operator: n.enum(["and", "or"]),
+  groupRoot: n.boolean().optional(),
+  type: v,
+  left: n.lazy(() => Te),
+  right: n.lazy(() => Te),
+  rightMode: n.enum(["literal", "variable"]).default("literal").optional()
 });
-var equalityPredicateSchema = z21.object({
-  operator: z21.enum(["equals", "not_equals"]),
-  type: SpektrFieldType,
-  groupRoot: z21.boolean().optional(),
-  left: z21.string(),
-  right: z21.union([z21.string(), z21.number(), z21.boolean()]),
-  rightMode: z21.enum(["literal", "variable"]).default("literal").optional()
+var ot = n.object({
+  operator: n.enum(["equals", "not_equals"]),
+  type: v,
+  groupRoot: n.boolean().optional(),
+  left: n.string(),
+  right: n.union([n.string(), n.number(), n.boolean()]),
+  rightMode: n.enum(["literal", "variable"]).default("literal").optional()
 });
-var inequalityPredicateSchema = z21.object({
-  operator: z21.enum(["greater_than", "less_than"]),
-  type: SpektrFieldType,
-  groupRoot: z21.boolean().optional(),
-  left: z21.string(),
-  right: z21.string().or(z21.number()),
-  rightMode: z21.enum(["literal", "variable"]).default("literal").optional()
+var it = n.object({
+  operator: n.enum(["greater_than", "less_than"]),
+  type: v,
+  groupRoot: n.boolean().optional(),
+  left: n.string(),
+  right: n.string().or(n.number()),
+  rightMode: n.enum(["literal", "variable"]).default("literal").optional()
 });
-var rangePredicateSchema = z21.object({
-  operator: z21.enum(["between", "outside"]),
-  type: SpektrFieldType,
-  groupRoot: z21.boolean().optional(),
-  left: z21.string(),
-  right: z21.string().regex(rangeRegex),
-  rightLowerboundMode: z21.enum(["literal", "variable"]).default("literal").optional(),
-  rightUpperboundMode: z21.enum(["literal", "variable"]).default("literal").optional()
+var nt = n.object({
+  operator: n.enum(["between", "outside"]),
+  type: v,
+  groupRoot: n.boolean().optional(),
+  left: n.string(),
+  right: n.string().regex(oe),
+  rightLowerboundMode: n.enum(["literal", "variable"]).default("literal").optional(),
+  rightUpperboundMode: n.enum(["literal", "variable"]).default("literal").optional()
 });
-var IsRelativeToDatePositions = {
+var u = {
   THIS: "this",
   NEXT: "next",
   PAST: "past"
-};
-var IsRelativeToDateScopes = {
+}, E = {
   DAY: "day",
   WEEK: "week",
   MONTH: "month",
   YEAR: "year"
-};
-var datePositionSchema = z21.enum([
-  IsRelativeToDatePositions.THIS,
-  IsRelativeToDatePositions.NEXT,
-  IsRelativeToDatePositions.PAST
-]);
-var dateScopeSchema = z21.enum([
-  IsRelativeToDateScopes.DAY,
-  IsRelativeToDateScopes.WEEK,
-  IsRelativeToDateScopes.MONTH,
-  IsRelativeToDateScopes.YEAR
-]);
-var dateAfterBeforeSchema = z21.object({
-  operator: z21.enum([
+}, at = n.enum([
+  u.THIS,
+  u.NEXT,
+  u.PAST
+]), st = n.enum([
+  E.DAY,
+  E.WEEK,
+  E.MONTH,
+  E.YEAR
+]), lt = n.object({
+  operator: n.enum([
     "is_after",
     "is_before",
     "is_on_or_after",
     "is_on_or_before"
   ]),
-  type: SpektrFieldType,
-  groupRoot: z21.boolean().optional(),
-  left: z21.string(),
-  right: z21.string().or(z21.number()),
-  rightMode: z21.enum(["literal", "variable"]).default("literal").optional()
-});
-var dateRelativeToTodaySchema = z21.object({
-  operator: z21.literal("is_relative_to_today"),
-  type: SpektrFieldType,
-  groupRoot: z21.boolean().optional(),
-  left: z21.string(),
-  right: z21.string().or(z21.number()).optional(),
-  rightMode: z21.enum(["literal", "variable"]).default("literal").optional(),
-  isRelativeConfig: z21.object({
-    position: datePositionSchema,
-    scope: dateScopeSchema,
-    quantity: z21.number()
+  type: v,
+  groupRoot: n.boolean().optional(),
+  left: n.string(),
+  right: n.string().or(n.number()),
+  rightMode: n.enum(["literal", "variable"]).default("literal").optional()
+}), pt = n.object({
+  operator: n.literal("is_relative_to_today"),
+  type: v,
+  groupRoot: n.boolean().optional(),
+  left: n.string(),
+  right: n.string().or(n.number()).optional(),
+  rightMode: n.enum(["literal", "variable"]).default("literal").optional(),
+  isRelativeConfig: n.object({
+    position: at,
+    scope: st,
+    quantity: n.number()
   })
-});
-var dateComparisonPredicateSchema = z21.discriminatedUnion("operator", [
-  dateAfterBeforeSchema,
-  dateRelativeToTodaySchema
+}), ft = n.discriminatedUnion("operator", [
+  lt,
+  pt
 ]);
-var existencePredicateSchema = z21.object({
-  operator: z21.enum(["is_empty", "is_not_empty"]),
-  type: SpektrFieldType,
-  groupRoot: z21.boolean().optional(),
-  left: z21.string(),
-  right: z21.undefined().optional()
+var ut = n.object({
+  operator: n.enum(["is_empty", "is_not_empty"]),
+  type: v,
+  groupRoot: n.boolean().optional(),
+  left: n.string(),
+  right: n.undefined().optional()
+}), mt = n.object({
+  operator: n.enum(["is_in", "is_not_in"]),
+  type: n.literal("matrix"),
+  groupRoot: n.boolean().optional(),
+  left: n.string(),
+  right: n.array(n.array(n.string()))
+}), dt = n.object({
+  operator: n.literal("noOp"),
+  type: v,
+  groupRoot: n.boolean().optional(),
+  left: n.undefined(),
+  right: n.undefined()
+}), ct = n.object({
+  operator: n.enum(["contains", "not_contains"]),
+  type: v,
+  groupRoot: n.boolean().optional(),
+  left: n.string(),
+  right: n.union([n.string(), n.array(n.string())]),
+  rightMode: n.enum(["literal", "variable"]).default("literal").optional()
 });
-var matrixPredicateSchema = z21.object({
-  operator: z21.enum(["is_in", "is_not_in"]),
-  type: z21.literal("matrix"),
-  groupRoot: z21.boolean().optional(),
-  left: z21.string(),
-  right: z21.array(z21.array(z21.string()))
-});
-var noOpPredicateSchema = z21.object({
-  operator: z21.literal("noOp"),
-  type: SpektrFieldType,
-  groupRoot: z21.boolean().optional(),
-  left: z21.undefined(),
-  right: z21.undefined()
-});
-var containsPredicateSchema = z21.object({
-  operator: z21.enum(["contains", "not_contains"]),
-  type: SpektrFieldType,
-  groupRoot: z21.boolean().optional(),
-  left: z21.string(),
-  right: z21.union([z21.string(), z21.array(z21.string())]),
-  rightMode: z21.enum(["literal", "variable"]).default("literal").optional()
-});
-var predicateSchema = z21.union([
-  booleanPredicateSchema,
-  equalityPredicateSchema,
-  inequalityPredicateSchema,
-  rangePredicateSchema,
-  dateComparisonPredicateSchema,
-  existencePredicateSchema,
-  matrixPredicateSchema,
-  noOpPredicateSchema,
-  containsPredicateSchema
+var Te = n.union([
+  rt,
+  ot,
+  it,
+  nt,
+  ft,
+  ut,
+  mt,
+  dt,
+  ct
 ]);
 
 // src/lib/predicate/utils/calculateDayPeriod.ts
-var calculateDayPeriod = (today, position, quantity = 1) => {
-  const todayYear = today.getFullYear();
-  const todayMonth = today.getMonth();
-  const todayDate = today.getDate();
-  if (position === IsRelativeToDatePositions.THIS) {
+var Ce = (e, i, a = 1) => {
+  let t = e.getFullYear(), r = e.getMonth(), o = e.getDate();
+  if (i === u.THIS)
     return {
-      start: today.getTime(),
-      end: today.getTime()
+      start: e.getTime(),
+      end: e.getTime()
     };
-  } else if (position === IsRelativeToDatePositions.PAST) {
-    const pastDayStart = new Date(
-      Date.UTC(todayYear, todayMonth, todayDate - quantity)
-    );
-    const pastDayEnd = new Date(Date.UTC(todayYear, todayMonth, todayDate - 1));
+  if (i === u.PAST) {
+    let s = new Date(
+      Date.UTC(t, r, o - a)
+    ), l = new Date(Date.UTC(t, r, o - 1));
     return {
-      start: pastDayStart.getTime(),
-      end: pastDayEnd.getTime()
+      start: s.getTime(),
+      end: l.getTime()
     };
-  } else if (position === IsRelativeToDatePositions.NEXT) {
-    const nextDayStart = new Date(
-      Date.UTC(todayYear, todayMonth, todayDate + 1)
-    );
-    const nextDayEnd = new Date(
-      Date.UTC(todayYear, todayMonth, todayDate + quantity)
+  } else if (i === u.NEXT) {
+    let s = new Date(
+      Date.UTC(t, r, o + 1)
+    ), l = new Date(
+      Date.UTC(t, r, o + a)
     );
     return {
-      start: nextDayStart.getTime(),
-      end: nextDayEnd.getTime()
+      start: s.getTime(),
+      end: l.getTime()
     };
   }
-  throw new Error(`Unsupported position: ${position}`);
+  throw new Error(`Unsupported position: ${i}`);
 };
 
 // src/lib/predicate/utils/calculateMonthPeriod.ts
-var calculateMonthPeriod = (today, position, quantity = 1) => {
-  const currentYear = today.getFullYear();
-  const currentMonth = today.getMonth();
-  let startMonthOffset = 0;
-  let endMonthOffset = 0;
-  const startDay = 1;
-  const endDay = 0;
-  if (position === IsRelativeToDatePositions.THIS) {
-    startMonthOffset = 0;
-    endMonthOffset = 1;
-  } else if (position === IsRelativeToDatePositions.PAST) {
-    startMonthOffset = -quantity;
-    endMonthOffset = 0;
-  } else if (position === IsRelativeToDatePositions.NEXT) {
-    startMonthOffset = 1;
-    endMonthOffset = quantity + 1;
-  } else {
-    throw new Error(`Unsupported position: ${position}`);
-  }
-  const start = new Date(
-    Date.UTC(currentYear, currentMonth + startMonthOffset, startDay)
+var ve = (e, i, a = 1) => {
+  let t = e.getFullYear(), r = e.getMonth(), o = 0, s = 0, l = 1, p = 0;
+  if (i === u.THIS)
+    o = 0, s = 1;
+  else if (i === u.PAST)
+    o = -a, s = 0;
+  else if (i === u.NEXT)
+    o = 1, s = a + 1;
+  else
+    throw new Error(`Unsupported position: ${i}`);
+  let x = new Date(
+    Date.UTC(t, r + o, l)
+  ).getTime(), F = new Date(
+    Date.UTC(t, r + s, p)
   ).getTime();
-  const end = new Date(
-    Date.UTC(currentYear, currentMonth + endMonthOffset, endDay)
-  ).getTime();
-  return { start, end };
+  return { start: x, end: F };
 };
 
 // src/lib/predicate/utils/calculateWeekPeriod.ts
-var calculateWeekPeriod = (today, position, quantity = 1) => {
-  const todayYear = today.getFullYear();
-  const todayMonth = today.getMonth();
-  const todayDate = today.getDate();
-  const currentDay = today.getDay();
-  const sunOfWeek = todayDate - currentDay;
-  let startOffset = 0;
-  let endOffset = 0;
-  if (position === IsRelativeToDatePositions.THIS) {
-    startOffset = 0;
-    endOffset = 6;
-  } else if (position === IsRelativeToDatePositions.PAST) {
-    startOffset = -7 * quantity;
-    endOffset = -1;
-  } else if (position === IsRelativeToDatePositions.NEXT) {
-    startOffset = 7;
-    endOffset = 7 * quantity + 6;
-  } else {
-    throw new Error(`Unsupported position: ${position}`);
-  }
-  const start = new Date(
-    Date.UTC(todayYear, todayMonth, sunOfWeek + startOffset)
+var Re = (e, i, a = 1) => {
+  let t = e.getFullYear(), r = e.getMonth(), o = e.getDate(), s = e.getDay(), l = o - s, p = 0, x = 0;
+  if (i === u.THIS)
+    p = 0, x = 6;
+  else if (i === u.PAST)
+    p = -7 * a, x = -1;
+  else if (i === u.NEXT)
+    p = 7, x = 7 * a + 6;
+  else
+    throw new Error(`Unsupported position: ${i}`);
+  let F = new Date(
+    Date.UTC(t, r, l + p)
+  ).getTime(), Oe = new Date(
+    Date.UTC(t, r, l + x)
   ).getTime();
-  const end = new Date(
-    Date.UTC(todayYear, todayMonth, sunOfWeek + endOffset)
-  ).getTime();
-  return { start, end };
+  return { start: F, end: Oe };
 };
 
 // src/lib/predicate/utils/calculateYearPeriod.ts
-var calculateYearPeriod = (today, position, quantity = 1) => {
-  const currentYear = today.getFullYear();
-  let startYearOffset = 0;
-  let endYearOffset = 0;
-  if (position === IsRelativeToDatePositions.THIS) {
-    startYearOffset = 0;
-    endYearOffset = 0;
-  } else if (position === IsRelativeToDatePositions.PAST) {
-    startYearOffset = -quantity;
-    endYearOffset = -1;
-  } else if (position === IsRelativeToDatePositions.NEXT) {
-    startYearOffset = 1;
-    endYearOffset = quantity;
-  } else {
-    throw new Error(`Unsupported position: ${position}`);
-  }
-  const start = new Date(
-    Date.UTC(currentYear + startYearOffset, 0, 1)
-  ).getTime();
-  const end = new Date(Date.UTC(currentYear + endYearOffset, 11, 31)).getTime();
-  return { start, end };
+var Ee = (e, i, a = 1) => {
+  let t = e.getFullYear(), r = 0, o = 0;
+  if (i === u.THIS)
+    r = 0, o = 0;
+  else if (i === u.PAST)
+    r = -a, o = -1;
+  else if (i === u.NEXT)
+    r = 1, o = a;
+  else
+    throw new Error(`Unsupported position: ${i}`);
+  let s = new Date(
+    Date.UTC(t + r, 0, 1)
+  ).getTime(), l = new Date(Date.UTC(t + o, 11, 31)).getTime();
+  return { start: s, end: l };
 };
 
 // src/lib/predicate/utils/calculateRelativePeriod.ts
-var calculateRelativePeriod = (position, scope, quantity = 1) => {
-  if (quantity <= 0) {
-    quantity = 1;
-  }
-  const now = /* @__PURE__ */ new Date();
-  const today = new Date(
-    Date.UTC(now.getFullYear(), now.getMonth(), now.getDate())
+var _e = (e, i, a = 1) => {
+  a <= 0 && (a = 1);
+  let t = /* @__PURE__ */ new Date(), r = new Date(
+    Date.UTC(t.getFullYear(), t.getMonth(), t.getDate())
   );
-  switch (scope) {
-    case IsRelativeToDateScopes.DAY:
-      return calculateDayPeriod(today, position, quantity);
-    case IsRelativeToDateScopes.WEEK:
-      return calculateWeekPeriod(today, position, quantity);
-    case IsRelativeToDateScopes.MONTH:
-      return calculateMonthPeriod(today, position, quantity);
-    case IsRelativeToDateScopes.YEAR:
-      return calculateYearPeriod(today, position, quantity);
+  switch (i) {
+    case E.DAY:
+      return Ce(r, e, a);
+    case E.WEEK:
+      return Re(r, e, a);
+    case E.MONTH:
+      return ve(r, e, a);
+    case E.YEAR:
+      return Ee(r, e, a);
     default:
-      throw new Error(`Unsupported time scope: ${scope}`);
+      throw new Error(`Unsupported time scope: ${i}`);
   }
 };
 
 // src/lib/predicate/utils/isDateInRelativePeriod.ts
-var isDateInRelativePeriod = (dateEpoch, config) => {
-  const { position, scope, quantity = 1 } = config;
-  const { start, end } = calculateRelativePeriod(position, scope, quantity);
-  const date = new Date(dateEpoch);
-  const normalizedDate = Date.UTC(
-    date.getFullYear(),
-    date.getMonth(),
-    date.getDate()
+var Ae = (e, i) => {
+  let { position: a, scope: t, quantity: r = 1 } = i, { start: o, end: s } = _e(a, t, r), l = new Date(e), p = Date.UTC(
+    l.getFullYear(),
+    l.getMonth(),
+    l.getDate()
   );
-  return normalizedDate >= start && normalizedDate <= end;
+  return p >= o && p <= s;
 };
 
 // src/lib/predicate/utils/dateCompareAgainst.ts
-var dateCompareAgainst = (leftEpoch) => {
-  leftEpoch = new Date(leftEpoch).setUTCHours(0, 0, 0, 0);
-  const isSameDate = (rightEpochOrToday) => {
-    const rightEpoch = epochOrTodayToEpoch(rightEpochOrToday);
-    return leftEpoch === rightEpoch;
-  };
-  const isAfterDate = (rightEpochOrToday) => {
-    const rightEpoch = epochOrTodayToEpoch(rightEpochOrToday);
-    return leftEpoch > rightEpoch;
-  };
-  const isBeforeDate = (rightEpochOrToday) => {
-    const rightEpoch = epochOrTodayToEpoch(rightEpochOrToday);
-    return leftEpoch < rightEpoch;
-  };
-  const isOnOrBeforeDate = (rightEpochOrToday) => {
-    const rightEpoch = epochOrTodayToEpoch(rightEpochOrToday);
-    return leftEpoch <= rightEpoch;
-  };
-  const isOnOrAfterDate = (rightEpochOrToday) => {
-    const rightEpoch = epochOrTodayToEpoch(rightEpochOrToday);
-    return leftEpoch >= rightEpoch;
-  };
-  const isInRelativePeriod = (isRelativeConfig) => {
-    return isDateInRelativePeriod(leftEpoch, isRelativeConfig);
-  };
-  return {
-    isSameDate,
-    isAfterDate,
-    isBeforeDate,
-    isOnOrBeforeDate,
-    isOnOrAfterDate,
-    isInRelativePeriod
-  };
-};
+var me = (e) => (e = new Date(e).setUTCHours(0, 0, 0, 0), {
+  isSameDate: (l) => {
+    let p = H(l);
+    return e === p;
+  },
+  isAfterDate: (l) => {
+    let p = H(l);
+    return e > p;
+  },
+  isBeforeDate: (l) => {
+    let p = H(l);
+    return e < p;
+  },
+  isOnOrBeforeDate: (l) => {
+    let p = H(l);
+    return e <= p;
+  },
+  isOnOrAfterDate: (l) => {
+    let p = H(l);
+    return e >= p;
+  },
+  isInRelativePeriod: (l) => Ae(e, l)
+});
 
 // src/lib/predicate/utils/getRights.ts
-var getRights = (predicate, subs) => {
-  var _a;
-  switch (predicate.operator) {
+var Ie = (e, i) => {
+  var a;
+  switch (e.operator) {
     case "noOp":
-      return void 0;
+      return;
     case "is_empty":
     case "is_not_empty":
-      return void 0;
+      return;
     case "between":
     case "outside": {
-      let [min, max] = parseRange(
-        predicate.right
+      let [t, r] = Fe(
+        e.right
       );
-      if (predicate.rightLowerboundMode === "variable") {
-        min = Number(subs[String(min)]);
-      }
-      if (predicate.rightUpperboundMode === "variable") {
-        max = Number(subs[String(max)]);
-      }
-      return [Number(min), Number(max)];
+      return e.rightLowerboundMode === "variable" && (t = Number(i[String(t)])), e.rightUpperboundMode === "variable" && (r = Number(i[String(r)])), [Number(t), Number(r)];
     }
     case "is_in":
     case "is_not_in":
-      return predicate.right;
+      return e.right;
     case "is_relative_to_today":
-      return void 0;
+      return;
     case "is_after":
     case "is_before":
     case "is_on_or_after":
@@ -928,281 +801,238 @@ var getRights = (predicate, subs) => {
     case "greater_than":
     case "and":
     case "or": {
-      if (typeof predicate.right === "object")
-        throw new RuleExecutionError(
-          `Rule Execution failed for operator '${predicate.operator}' with right-hand value: ${JSON.stringify(predicate.right)}`
+      if (typeof e.right == "object")
+        throw new f(
+          `Rule Execution failed for operator '${e.operator}' with right-hand value: ${JSON.stringify(e.right)}`
         );
-      const right = predicate.rightMode === "variable" ? subs[String(predicate.right)] : predicate.right;
-      return right != null ? right : void 0;
+      let t = e.rightMode === "variable" ? i[String(e.right)] : e.right;
+      return t != null ? t : void 0;
     }
     case "contains":
     case "not_contains":
-      if (Array.isArray(predicate.right)) {
-        return predicate.right;
-      }
-      if (predicate.rightMode === "variable") {
-        return (_a = subs[String(predicate.right)]) != null ? _a : void 0;
-      }
-      return predicate.right;
+      return Array.isArray(e.right) ? e.right : e.rightMode === "variable" ? (a = i[String(e.right)]) != null ? a : void 0 : e.right;
   }
 };
 
 // src/lib/predicate/executePredicate.ts
-function executePredicate(predicate, leftSubs, rightSubs) {
-  if (predicate.operator === "noOp") {
-    return true;
-  }
-  if (predicate.operator === "and") {
-    const leftEvaluated = executePredicate(predicate.left, leftSubs, rightSubs);
-    const rightEvaluated = executePredicate(
-      predicate.right,
-      leftSubs,
-      rightSubs
+function _(e, i, a) {
+  if (e.operator === "noOp")
+    return !0;
+  if (e.operator === "and") {
+    let o = _(e.left, i, a), s = _(
+      e.right,
+      i,
+      a
     );
-    return leftEvaluated && rightEvaluated;
+    return o && s;
   }
-  if (predicate.operator === "or") {
-    const leftEvaluated = executePredicate(predicate.left, leftSubs, rightSubs);
-    const rightEvaluated = executePredicate(
-      predicate.right,
-      leftSubs,
-      rightSubs
+  if (e.operator === "or") {
+    let o = _(e.left, i, a), s = _(
+      e.right,
+      i,
+      a
     );
-    return leftEvaluated || rightEvaluated;
+    return o || s;
   }
-  if (typeof predicate.left !== "string")
-    throw new RuleExecutionError(
-      `Rule Execution failed. Left operand of leaf rule must be of type string but received left operand '${predicate.left}' of type '${typeof predicate.left}'`
+  if (typeof e.left != "string")
+    throw new f(
+      `Rule Execution failed. Left operand of leaf rule must be of type string but received left operand '${e.left}' of type '${typeof e.left}'`
     );
-  const left = leftSubs[predicate.left];
-  if (left === void 0 && predicate.operator !== "is_empty") return false;
-  const rights = getRights(predicate, rightSubs);
-  if (predicate.type === "date" && predicate.operator !== "is_empty" && predicate.operator !== "is_not_empty" && (typeof rights === "number" || typeof rights === "string")) {
-    if (!left)
-      throw new RuleExecutionError(
-        `Rule Execution failed. Left operand of a date-rule with operator '${predicate.operator}' cannot be empty.'`
+  let t = i[e.left];
+  if (t === void 0 && e.operator !== "is_empty") return !1;
+  let r = Ie(e, a);
+  if (e.type === "date" && e.operator !== "is_empty" && e.operator !== "is_not_empty" && (typeof r == "number" || typeof r == "string")) {
+    if (!t)
+      throw new f(
+        `Rule Execution failed. Left operand of a date-rule with operator '${e.operator}' cannot be empty.'`
       );
-    const leftEpoch = parseDateToTimestamp(left);
-    const spektrFieldDate = dateCompareAgainst(leftEpoch);
-    if (predicate.operator === "is_after") {
-      return spektrFieldDate.isAfterDate(rights);
-    }
-    if (predicate.operator === "is_before") {
-      return spektrFieldDate.isBeforeDate(rights);
-    }
-    if (predicate.operator === "equals") {
-      return spektrFieldDate.isSameDate(rights);
-    }
-    if (predicate.operator === "not_equals") {
-      return !spektrFieldDate.isSameDate(rights);
-    }
-    if (predicate.operator === "is_on_or_before") {
-      return spektrFieldDate.isOnOrBeforeDate(rights);
-    }
-    if (predicate.operator === "is_on_or_after") {
-      return spektrFieldDate.isOnOrAfterDate(rights);
-    }
+    let o = ie(t), s = me(o);
+    if (e.operator === "is_after")
+      return s.isAfterDate(r);
+    if (e.operator === "is_before")
+      return s.isBeforeDate(r);
+    if (e.operator === "equals")
+      return s.isSameDate(r);
+    if (e.operator === "not_equals")
+      return !s.isSameDate(r);
+    if (e.operator === "is_on_or_before")
+      return s.isOnOrBeforeDate(r);
+    if (e.operator === "is_on_or_after")
+      return s.isOnOrAfterDate(r);
   }
-  if (predicate.operator === "is_empty") {
-    return left === null || left === void 0;
-  }
-  if (predicate.operator === "is_not_empty") {
-    return left !== null || left === void 0;
-  }
-  if (predicate.type === "date" && predicate.operator === "is_relative_to_today") {
-    if (!left || !predicate.isRelativeConfig)
-      throw new RuleExecutionError(
-        `Rule Execution failed. Left operand and/or isRelativeConfig cannot be empty.`
+  if (e.operator === "is_empty")
+    return t == null;
+  if (e.operator === "is_not_empty")
+    return t !== null || t === void 0;
+  if (e.type === "date" && e.operator === "is_relative_to_today") {
+    if (!t || !e.isRelativeConfig)
+      throw new f(
+        "Rule Execution failed. Left operand and/or isRelativeConfig cannot be empty."
       );
-    const leftEpoch = parseDateToTimestamp(left);
-    const spektrFieldDate = dateCompareAgainst(leftEpoch);
-    return spektrFieldDate.isInRelativePeriod(predicate.isRelativeConfig);
+    let o = ie(t);
+    return me(o).isInRelativePeriod(e.isRelativeConfig);
   }
-  if (predicate.type === "country" && Array.isArray(rights)) {
-    const leftCountry = parseCountry(String(left));
-    if (leftCountry) {
-      const match = rights.some((right) => {
-        const rightCountry = parseCountry(String(right));
-        return leftCountry.isoAlpha2 === (rightCountry == null ? void 0 : rightCountry.isoAlpha2) || leftCountry.name === (rightCountry == null ? void 0 : rightCountry.name);
+  if (e.type === "country" && Array.isArray(r)) {
+    let o = K(String(t));
+    if (o) {
+      let s = r.some((l) => {
+        let p = K(String(l));
+        return o.isoAlpha2 === (p == null ? void 0 : p.isoAlpha2) || o.name === (p == null ? void 0 : p.name);
       });
-      if (predicate.operator === "contains") return match;
-      if (predicate.operator === "not_contains") return !match;
+      if (e.operator === "contains") return s;
+      if (e.operator === "not_contains") return !s;
     }
   }
-  if (predicate.operator === "contains" && Array.isArray(rights)) {
-    let arrayLeft;
+  if (e.operator === "contains" && Array.isArray(r)) {
+    let o;
     try {
-      arrayLeft = JSON.parse(String(left));
-    } catch (_e) {
-      arrayLeft = [left];
+      o = JSON.parse(String(t));
+    } catch (s) {
+      o = [t];
     }
-    if (Array.isArray(arrayLeft)) {
-      if (arrayLeft.length === 0) return false;
-      const rightsSet = new Set(
-        rights.map(
-          (right) => typeof right === "string" ? right.toLowerCase() : right
+    if (Array.isArray(o)) {
+      if (o.length === 0) return !1;
+      let s = new Set(
+        r.map(
+          (l) => typeof l == "string" ? l.toLowerCase() : l
         )
       );
-      return arrayLeft.some((leftItem) => {
-        if (typeof leftItem !== "string") {
-          throw new RuleExecutionError(
-            `Rule Execution failed. Left operand of a contains-rule must be of type string but received '${leftItem}' of type '${typeof leftItem}'`
+      return o.some((l) => {
+        if (typeof l != "string")
+          throw new f(
+            `Rule Execution failed. Left operand of a contains-rule must be of type string but received '${l}' of type '${typeof l}'`
           );
-        }
-        return rightsSet.has(leftItem.toLowerCase());
+        return s.has(l.toLowerCase());
       });
     }
   }
-  if (predicate.operator === "not_contains" && Array.isArray(rights)) {
-    let arrayLeft;
+  if (e.operator === "not_contains" && Array.isArray(r)) {
+    let o;
     try {
-      arrayLeft = JSON.parse(String(left));
-    } catch (_e) {
-      arrayLeft = [left];
+      o = JSON.parse(String(t));
+    } catch (s) {
+      o = [t];
     }
-    if (Array.isArray(arrayLeft)) {
-      if (arrayLeft.length === 0) return true;
-      const rightsSet = new Set(
-        rights.map(
-          (right) => typeof right === "string" ? right.toLowerCase() : right
+    if (Array.isArray(o)) {
+      if (o.length === 0) return !0;
+      let s = new Set(
+        r.map(
+          (l) => typeof l == "string" ? l.toLowerCase() : l
         )
       );
-      return arrayLeft.every((leftItem) => {
-        if (typeof leftItem !== "string") {
-          throw new RuleExecutionError(
-            `Rule Execution failed. Left operand of a not_contains-rule must be of type string but received '${leftItem}' of type '${typeof leftItem}'`
+      return o.every((l) => {
+        if (typeof l != "string")
+          throw new f(
+            `Rule Execution failed. Left operand of a not_contains-rule must be of type string but received '${l}' of type '${typeof l}'`
           );
-        }
-        return !rightsSet.has(leftItem.toLowerCase());
+        return !s.has(l.toLowerCase());
       });
     }
   }
-  if (predicate.operator === "contains" && typeof rights === "string") {
+  if (e.operator === "contains" && typeof r == "string") {
     try {
-      const parsedLeft = JSON.parse(String(left));
-      if (Array.isArray(parsedLeft)) {
-        throw new RuleExecutionError(
+      let o = JSON.parse(String(t));
+      if (Array.isArray(o))
+        throw new f(
           "Rule Execution failed. Expected left to be of type string for a contains rule with rights of type string, but received an array"
         );
-      }
-    } catch (_e) {
+    } catch (o) {
     }
-    return !!(left == null ? void 0 : left.toLocaleString().toLowerCase().includes(rights.toLowerCase()));
+    return !!(t != null && t.toLocaleString().toLowerCase().includes(r.toLowerCase()));
   }
-  if (predicate.operator === "not_contains" && typeof rights === "string") {
+  if (e.operator === "not_contains" && typeof r == "string") {
     try {
-      const parsedLeft = JSON.parse(String(left));
-      if (Array.isArray(parsedLeft)) {
-        throw new RuleExecutionError(
+      let o = JSON.parse(String(t));
+      if (Array.isArray(o))
+        throw new f(
           "Rule Execution failed. Expected left to be of type string for a contains rule with rights of type string, but received an array"
         );
-      }
-    } catch (_e) {
+    } catch (o) {
     }
-    return !(left == null ? void 0 : left.toLocaleString().toLowerCase().includes(rights.toLowerCase()));
+    return !(t != null && t.toLocaleString().toLowerCase().includes(r.toLowerCase()));
   }
-  if (predicate.type === "country" && typeof rights === "string") {
-    const rightCountry = parseCountry(rights);
-    const leftCountry = parseCountry(String(left));
-    if (leftCountry && rightCountry) {
-      const match = leftCountry.isoAlpha2 === rightCountry.isoAlpha2;
-      if (predicate.operator === "equals") return match;
-      if (predicate.operator === "not_equals") return !match;
+  if (e.type === "country" && typeof r == "string") {
+    let o = K(r), s = K(String(t));
+    if (s && o) {
+      let l = s.isoAlpha2 === o.isoAlpha2;
+      if (e.operator === "equals") return l;
+      if (e.operator === "not_equals") return !l;
     }
   }
-  if (predicate.operator === "equals") {
-    if (typeof left === "string" && typeof rights === "string") {
-      return left.toLowerCase() === rights.toLowerCase();
-    }
-    const normalizedLeft = typeof left === "string" && predicate.type === "boolean" ? left.toLowerCase() === "true" : left;
-    const normalizedRights = typeof rights === "string" && predicate.type === "boolean" ? rights.toLowerCase() === "true" : rights;
-    return normalizedLeft == normalizedRights && !Number.isNaN(normalizedLeft);
+  if (e.operator === "equals") {
+    if (typeof t == "string" && typeof r == "string")
+      return t.toLowerCase() === r.toLowerCase();
+    let o = typeof t == "string" && e.type === "boolean" ? t.toLowerCase() === "true" : t, s = typeof r == "string" && e.type === "boolean" ? r.toLowerCase() === "true" : r;
+    return o == s && !Number.isNaN(o);
   }
-  if (predicate.operator === "not_equals") {
-    if (typeof left === "string" && typeof rights === "string") {
-      return left.toLowerCase() !== rights.toLowerCase();
-    }
-    const normalizedLeft = typeof left === "string" && predicate.type === "boolean" ? left.toLowerCase() === "true" : left;
-    const normalizedRights = typeof rights === "string" && predicate.type === "boolean" ? rights.toLowerCase() === "true" : rights;
-    return normalizedLeft != normalizedRights && !Number.isNaN(normalizedLeft);
+  if (e.operator === "not_equals") {
+    if (typeof t == "string" && typeof r == "string")
+      return t.toLowerCase() !== r.toLowerCase();
+    let o = typeof t == "string" && e.type === "boolean" ? t.toLowerCase() === "true" : t, s = typeof r == "string" && e.type === "boolean" ? r.toLowerCase() === "true" : r;
+    return o != s && !Number.isNaN(o);
   }
-  if (predicate.operator === "less_than") {
-    return !Number.isNaN(Number(left)) && Number(left) < Number(rights);
-  }
-  if (predicate.operator === "greater_than") {
-    return Number(left) > Number(rights) && !Number.isNaN(Number(left));
-  }
-  if (predicate.operator === "between") {
-    if (!Array.isArray(rights))
-      throw new RuleExecutionError(
-        `Rule Execution failed. Failed to extract bounds of rule ${predicate.right}`
+  if (e.operator === "less_than")
+    return !Number.isNaN(Number(t)) && Number(t) < Number(r);
+  if (e.operator === "greater_than")
+    return Number(t) > Number(r) && !Number.isNaN(Number(t));
+  if (e.operator === "between") {
+    if (!Array.isArray(r))
+      throw new f(
+        `Rule Execution failed. Failed to extract bounds of rule ${e.right}`
       );
-    const min = rights[0];
-    const max = rights[1];
-    return Number(left) >= Number(min) && Number(left) <= Number(max);
+    let o = r[0], s = r[1];
+    return Number(t) >= Number(o) && Number(t) <= Number(s);
   }
-  if (predicate.operator === "outside") {
-    if (!Array.isArray(rights))
-      throw new RuleExecutionError(
-        `Rule Execution failed. Failed to extract bounds of rule ${predicate.right}`
+  if (e.operator === "outside") {
+    if (!Array.isArray(r))
+      throw new f(
+        `Rule Execution failed. Failed to extract bounds of rule ${e.right}`
       );
-    const min = rights[0];
-    const max = rights[1];
-    return Number(left) < Number(min) || Number(left) > Number(max);
+    let o = r[0], s = r[1];
+    return Number(t) < Number(o) || Number(t) > Number(s);
   }
-  if (predicate.type === "matrix") {
-    assertIsMatrix(rights);
-    const leftLower = typeof left === "string" ? left.toLowerCase() : left;
-    const match = rights.some(
-      (row) => row.some((cell) => cell.trim().toLowerCase() === leftLower)
+  if (e.type === "matrix") {
+    Pe(r);
+    let o = typeof t == "string" ? t.toLowerCase() : t, s = r.some(
+      (l) => l.some((p) => p.trim().toLowerCase() === o)
     );
-    if (predicate.operator === "is_in") return match;
-    if (predicate.operator === "is_not_in") return !match;
+    if (e.operator === "is_in") return s;
+    if (e.operator === "is_not_in") return !s;
   }
-  throw new RuleExecutionError(
-    `Rule Execution failed for predicate ${JSON.stringify(predicate)}.`
+  throw new f(
+    `Rule Execution failed for predicate ${JSON.stringify(e)}.`
   );
 }
 
 // src/lib/formEvaluation/utils/evaluateLogicalField.ts
-function evaluateLogicalField(field, context) {
-  var _a;
-  if (!(field == null ? void 0 : field.segment)) {
-    return false;
-  }
-  if (!Array.isArray((_a = field.segment) == null ? void 0 : _a.groups) || field.segment.groups.length === 0) {
-    return false;
-  }
-  const evaluation = field.segment.groups.map(
-    (group) => executePredicate(group.rule, context, context)
-  ).every((result) => !!result);
-  const shouldShow = field.output === ConditionOutput.Enum.show ? evaluation : !evaluation;
-  return shouldShow;
+function ne(e, i) {
+  var r;
+  if (!(e != null && e.segment) || !Array.isArray((r = e.segment) == null ? void 0 : r.groups) || e.segment.groups.length === 0)
+    return !1;
+  let a = e.segment.groups.map(
+    (o) => _(o.rule, i, i)
+  ).every((o) => !!o);
+  return e.output === le.Enum.show ? a : !a;
 }
 
 // src/lib/formEvaluation/formEvaluation.ts
-function formEvaluation(field, context) {
-  if (!hasLogicalFields(field.fields)) {
-    return orderFields(field.fields, field.order);
-  }
-  const evaluatedFields = [];
-  orderFields(field.fields, field.order).forEach((field2) => {
-    if (isLogicalField(field2)) {
-      const shouldShow = evaluateLogicalField(field2, context);
-      if (shouldShow) {
-        evaluatedFields.push(
-          ...orderFields(field2.form.fields, field2.form.order)
-        );
-      }
+function ze(e, i) {
+  if (!ue(e.fields))
+    return re(e.fields, e.order);
+  let a = [];
+  return re(e.fields, e.order).forEach((t) => {
+    if (G(t)) {
+      ne(t, i) && a.push(
+        ...re(t.form.fields, t.form.order)
+      );
       return;
     }
-    evaluatedFields.push(field2);
-  });
-  return evaluatedFields;
+    a.push(t);
+  }), a;
 }
 
 // src/constants/supportedLanguages.ts
-var SUPPORTED_LANGUAGES = [
+var ke = [
   "en-US",
   // English (United States)
   "da-DK",
@@ -1230,85 +1060,75 @@ var SUPPORTED_LANGUAGES = [
 ];
 
 // src/utils/isLocaleSupported.ts
-function isLocaleSupported(locale) {
-  return SUPPORTED_LANGUAGES.includes(
-    locale
+function Ne(e) {
+  return ke.includes(
+    e
   );
 }
 
 // src/lib/translations/utils/translateNaceCodes.ts
-import { produce } from "immer";
+import { produce as yt } from "immer";
 
 // src/utils/cdn.ts
-var ORIGIN = "https://platform.spektr.com/";
-function getNaceCodesUrl(language) {
-  const url = new URL(`assets/data/${language}/nace-codes.json`, ORIGIN);
-  return url.toString();
+var gt = "https://platform.spektr.com/";
+function Le(e) {
+  return new URL(`assets/data/${e}/nace-codes.json`, gt).toString();
 }
 
 // src/lib/translations/utils/translateNaceCodes.ts
-async function translateNaceCodes(field, language) {
-  const naceCodes = await fetch(getNaceCodesUrl(language)).then(
-    (res) => res.json()
+async function je(e, i) {
+  let a = await fetch(Le(i)).then(
+    (r) => r.json()
   );
-  if (!Array.isArray(naceCodes)) {
-    throw new Error(`NACE codes not found for language: ${language}`);
-  }
-  const updatedOptions = naceCodes.map((code) => {
-    const value = `${code.section}${code.code}`;
-    let label = `${value} - ${code.name}`;
-    if (code.level && Number(code.level) > 1) {
-      label += ` (${code.level})`;
-    }
-    return { value, label };
+  if (!Array.isArray(a))
+    throw new Error(`NACE codes not found for language: ${i}`);
+  let t = a.map((r) => {
+    let o = `${r.section}${r.code}`, s = `${o} - ${r.name}`;
+    return r.level && Number(r.level) > 1 && (s += ` (${r.level})`), { value: o, label: s };
   });
-  return produce(field, (draft) => {
-    draft.attributes.options = updatedOptions;
+  return yt(e, (r) => {
+    r.attributes.options = t;
   });
 }
 
 // src/lib/translations/translateFields.ts
-async function translateFields(fields, language) {
-  let typedLanguage = "en-US";
-  if (language && isLocaleSupported(language)) {
-    typedLanguage = language;
-  }
-  const result = {};
-  for (const [key, field] of Object.entries(fields)) {
-    if (isEntitiesField(field) || isLogicalField(field)) {
-      const translatedFields = await translateFields(
-        field.form.fields,
-        typedLanguage
+async function de(e, i) {
+  let a = "en-US";
+  i && Ne(i) && (a = i);
+  let t = {};
+  for (let [r, o] of Object.entries(e))
+    if (te(o) || G(o)) {
+      let s = await de(
+        o.form.fields,
+        a
       );
-      result[key] = {
-        ...field,
+      t[r] = {
+        ...o,
         form: {
-          ...field.form,
+          ...o.form,
           // Because the `fields` property is defined separate of Field,
           // we need to cast it to `any` to avoid TypeScript errors.
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          fields: translatedFields
+          fields: s
         }
       };
-    } else if (isDropdownField(field) && field.config.spektrDataField === "nace_code") {
-      const newField = await translateNaceCodes(field, typedLanguage);
-      result[key] = newField;
-    } else {
-      result[key] = field;
-    }
-  }
-  return result;
+    } else if (ge(o) && o.config.spektrDataField === "nace_code") {
+      let s = await je(o, a);
+      t[r] = s;
+    } else
+      t[r] = o;
+  return t;
 }
 
 // src/SpektrSdk.ts
-var SpektrSdk = {
-  executePredicate,
-  formEvaluation,
-  translateFields
-};
-var SpektrSdk_default = SpektrSdk;
+var Ft = {
+  executePredicate: _,
+  formEvaluation: ze,
+  translateFields: de,
+  evaluateConditionalField: ne
+}, bt = Ft;
 export {
-  SpektrSdk,
-  SpektrSdk_default as default
+  Ft as SpektrSdk,
+  bt as default
 };
 //# sourceMappingURL=index.mjs.map
